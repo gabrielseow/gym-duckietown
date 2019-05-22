@@ -20,6 +20,8 @@ from gym_duckietown.wrappers import UndistortWrapper
 
 image_save_requested = False
 awaiting_seg_image = False
+image_save_wait_count = 5
+image_save_counter = 0
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--env-name', default='Duckietown-udem1-v0')
@@ -69,6 +71,10 @@ def on_key_press(symbol, modifiers):
         env.set_image_segmentation_mode(False)
     elif symbol == key.D:
         env.set_image_segmentation_mode(True)
+    elif symbol == key.L:
+        env.is_lighting_enabled = True
+    elif symbol == key.K:
+        env.is_lighting_enabled = False
     elif symbol == key.P:
         global image_save_requested
         image_save_requested = True
@@ -114,7 +120,7 @@ def update(dt):
             action *= 1.5
 
     obs, reward, done, info = env.step(action)
-    print('step_count = %s, reward=%.3f' % (env.unwrapped.step_count, reward))
+    #print('step_count = %s, reward=%.3f' % (env.unwrapped.step_count, reward))
 
     if key_handler[key.RETURN]:
         from PIL import Image

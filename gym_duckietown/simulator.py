@@ -38,7 +38,6 @@ DEFAULT_CAMERA_HEIGHT = 480
 
 # Blue sky horizon color
 BLUE_SKY_COLOR = np.array([0.45, 0.82, 1])
-
 # Color meant to approximate interior walls
 WALL_COLOR = np.array([0.64, 0.71, 0.28])
 
@@ -209,6 +208,10 @@ class Simulator(gym.Env):
         if self.domain_rand:
             self.randomizer = Randomizer()
 
+        self.horizon_color = BLUE_SKY_COLOR
+
+        self.is_lighting_enabled = True
+
         self.image_seg = image_seg
 
         # Frame rate to run at
@@ -280,8 +283,6 @@ class Simulator(gym.Env):
         # Array to render the image into (for human rendering)
         self.img_array_human = np.zeros(shape=(WINDOW_HEIGHT, WINDOW_WIDTH, 3), dtype=np.uint8)
 
-        
-
         # allowed angle in lane for starting position
         self.accept_start_angle_deg = accept_start_angle_deg
 
@@ -343,9 +344,54 @@ class Simulator(gym.Env):
         ]
         self.ground_vlist = pyglet.graphics.vertex_list(4, ('v3f', verts))
 
+    def enable_lighting(self, b):
+        from pyglet import gl
+        if b:
+            # Lighting
+            # Setup some basic lighting with a far away sun
+            if self.domain_rand:
+                light_pos = self.randomization_settings['light_pos']
+            else:
+                light_pos = [-40, 200, 100]
+
+            ambient = self._perturb([0.50, 0.50, 0.50], 0.3)
+
+            gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION, (gl.GLfloat * 4)(*light_pos))
+            gl.glLightfv(gl.GL_LIGHT0, gl.GL_AMBIENT, (gl.GLfloat * 4)(*ambient))
+            gl.glLightfv(gl.GL_LIGHT0, gl.GL_DIFFUSE, (gl.GLfloat * 4)(0.5, 0.5, 0.5, 1.0))
+            gl.glEnable(gl.GL_LIGHT0)
+            gl.glEnable(gl.GL_LIGHTING)
+            gl.glEnable(gl.GL_COLOR_MATERIAL)
+        else:
+            # Lighting
+            gl.glDisable(gl.GL_LIGHT0)
+            gl.glDisable(gl.GL_LIGHTING)
+            gl.glDisable(gl.GL_COLOR_MATERIAL)
+
     def set_image_segmentation_mode(self, b):
         self.image_seg = b
+
         Texture.clear_cache()
+
+        self.is_lighting_enabled = not b
+
+        if b:
+            # Sky color
+            self.horizon_color = [0.0, 0.0, 0.0]
+        else:
+            # Sky color
+            if self.domain_rand:
+                horz_mode = self.randomization_settings['horz_mode']
+                if horz_mode == 0:
+                    self.horizon_color = self._perturb(BLUE_SKY_COLOR)
+                elif horz_mode == 1:
+                    self.horizon_color = self._perturb(WALL_COLOR)
+                elif horz_mode == 2:
+                    self.horizon_color = self._perturb([0.15, 0.15, 0.15], 0.4)
+                elif horz_mode == 3:
+                    self.horizon_color = self._perturb([0.9, 0.9, 0.9], 0.4)
+            else:
+                self.horizon_color = BLUE_SKY_COLOR
 
         for tile in self.grid:
             rng = self.np_random if self.domain_rand else None
@@ -358,15 +404,12 @@ class Simulator(gym.Env):
         This also randomizes many environment parameters (domain randomization)
         """
 
-        self.set_image_segmentation_mode(self.image_seg)
-
         # Step count since episode start
         self.step_count = 0
         self.timestamp = 0.0
 
         # Robot's current speed
         self.speed = 0
-
 
         if self.randomize_maps_on_reset:
             map_name = np.random.choice(self.map_names)
@@ -378,7 +421,9 @@ class Simulator(gym.Env):
         # Horizon color
         # Note: we explicitly sample white and grey/black because
         # these colors are easily confused for road and lane markings
-        if self.domain_rand:
+        if self.image_seg:
+            self.horizon_color = [0.0, 0.0, 0.0]
+        elif self.domain_rand:
             horz_mode = self.randomization_settings['horz_mode']
             if horz_mode == 0:
                 self.horizon_color = self._perturb(BLUE_SKY_COLOR)
@@ -391,22 +436,7 @@ class Simulator(gym.Env):
         else:
             self.horizon_color = BLUE_SKY_COLOR
 
-        # Setup some basic lighting with a far away sun
-        if self.domain_rand:
-            light_pos = self.randomization_settings['light_pos']
-        else:
-            light_pos = [-40, 200, 100]
-
-        ambient = self._perturb([0.50, 0.50, 0.50], 0.3)
-        # XXX: diffuse is not used?
-        diffuse = self._perturb([0.70, 0.70, 0.70], 0.3)
-        from pyglet import gl
-        gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION, (gl.GLfloat * 4)(*light_pos))
-        gl.glLightfv(gl.GL_LIGHT0, gl.GL_AMBIENT, (gl.GLfloat * 4)(*ambient))
-        gl.glLightfv(gl.GL_LIGHT0, gl.GL_DIFFUSE, (gl.GLfloat * 4)(0.5, 0.5, 0.5, 1.0))
-        gl.glEnable(gl.GL_LIGHT0)
-        gl.glEnable(gl.GL_LIGHTING)
-        gl.glEnable(gl.GL_COLOR_MATERIAL)
+        self.set_image_segmentation_mode(self.image_seg)
 
         # Ground color
         self.ground_color = self._perturb(GROUND_COLOR, 0.3)
@@ -446,8 +476,9 @@ class Simulator(gym.Env):
             # Randomize the tile texture
             tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=self.image_seg)
 
-            # Random tile color multiplier
-            tile['color'] = self._perturb([1, 1, 1], 0.2)
+            if self.domain_rand:
+                # Random tile color multiplier
+                tile['color'] = self._perturb([1, 1, 1], 0.2)
 
         # Randomize object parameters
         for obj in self.objects:
@@ -478,8 +509,6 @@ class Simulator(gym.Env):
                 tile = self.drivable_tiles[tile_idx]
 
         # Keep trying to find a valid spawn position on this tile
-
-
         for _ in range(MAX_SPAWN_ATTEMPTS):
             i, j = tile['coords']
 
@@ -1403,6 +1432,7 @@ class Simulator(gym.Env):
         gl.glViewport(0, 0, width, height)
 
         # Clear the color and depth buffers
+        self.enable_lighting(self.is_lighting_enabled)
 
         c0, c1, c2 = self.horizon_color
         gl.glClearColor(c0, c1, c2, 1.0)

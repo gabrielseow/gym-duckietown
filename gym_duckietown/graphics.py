@@ -11,6 +11,7 @@ from ctypes import byref
 
 from .utils import *
 
+
 class Texture(object):
     """
     Manage the caching of textures, and texture randomization
