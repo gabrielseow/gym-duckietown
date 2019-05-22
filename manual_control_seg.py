@@ -18,6 +18,9 @@ from gym_duckietown.wrappers import UndistortWrapper
 
 # from experiments.utils import save_img
 
+image_save_requested = False
+awaiting_seg_image = False
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--env-name', default='Duckietown-udem1-v0')
 parser.add_argument('--map-name', default='udem1')
@@ -45,6 +48,7 @@ else:
 env.reset()
 env.render()
 
+
 @env.unwrapped.window.event
 def on_key_press(symbol, modifiers):
     """
@@ -62,9 +66,12 @@ def on_key_press(symbol, modifiers):
         env.close()
         sys.exit(0)
     elif symbol == key.S:
-         env.set_image_segmentation_mode(False)
+        env.set_image_segmentation_mode(False)
     elif symbol == key.D:
-         env.set_image_segmentation_mode(True)
+        env.set_image_segmentation_mode(True)
+    elif symbol == key.P:
+        global image_save_requested
+        image_save_requested = True
 
     # Take a screenshot
     # UNCOMMENT IF NEEDED - Skimage dependency
@@ -73,9 +80,11 @@ def on_key_press(symbol, modifiers):
     #     img = env.render('rgb_array')
     #     save_img('screenshot.png', img)
 
+
 # Register a keyboard handler
 key_handler = key.KeyStateHandler()
 env.unwrapped.window.push_handlers(key_handler)
+
 
 def update(dt):
     """
@@ -83,22 +92,26 @@ def update(dt):
     movement/stepping and redrawing
     """
 
+    global image_save_requested
+    global awaiting_seg_image
+
     action = np.array([0.0, 0.0])
 
-    if key_handler[key.UP]:
-        action = np.array([0.44, 0.0])
-    if key_handler[key.DOWN]:
-        action = np.array([-0.44, 0])
-    if key_handler[key.LEFT]:
-        action = np.array([0.35, +1])
-    if key_handler[key.RIGHT]:
-        action = np.array([0.35, -1])
-    if key_handler[key.SPACE]:
-        action = np.array([0, 0])
+    if image_save_requested is False and awaiting_seg_image is False:
+        if key_handler[key.UP]:
+            action = np.array([0.44, 0.0])
+        if key_handler[key.DOWN]:
+            action = np.array([-0.44, 0])
+        if key_handler[key.LEFT]:
+            action = np.array([0.35, +1])
+        if key_handler[key.RIGHT]:
+            action = np.array([0.35, -1])
+        if key_handler[key.SPACE]:
+            action = np.array([0, 0])
 
-    # Speed boost
-    if key_handler[key.LSHIFT]:
-        action *= 1.5
+        # Speed boost
+        if key_handler[key.LSHIFT]:
+            action *= 1.5
 
     obs, reward, done, info = env.step(action)
     print('step_count = %s, reward=%.3f' % (env.unwrapped.step_count, reward))
@@ -114,7 +127,30 @@ def update(dt):
         env.reset()
         env.render()
 
-    env.render()
+    # global awaiting_seg_image
+    # if awaiting_seg_image:
+    #     awaiting_seg_image = False
+    #     im = Image.fromarray(obs)
+    #     env.render(mode="image_seg")
+    #     im = Image.fromarray(obs)
+    #     im.save('ImageSegData/frame_%s_seg.png' % env.step_count)
+    #     env.set_image_segmentation_mode(False)
+
+    env.render(mode="image_seg")
+    if image_save_requested or awaiting_seg_image:
+        from PIL import Image
+        env.render(mode="image_seg")
+        im = Image.fromarray(obs)
+
+        if awaiting_seg_image:
+            im.save('ImageSegData/frame_%s_seg.png' % env.step_count)
+            awaiting_seg_image = False
+            image_save_requested = False
+            env.set_image_segmentation_mode(False)
+        else:
+            im.save('ImageSegData/frame_%s.png' % env.step_count)
+            env.set_image_segmentation_mode(True)
+            awaiting_seg_image = True
 
 pyglet.clock.schedule_interval(update, 1.0 / env.unwrapped.frame_rate)
 
