@@ -31,6 +31,13 @@ class Texture(object):
     def get(self, tex_name, rng=None, image_seg=False):
         paths = self.tex_paths.get(tex_name, [])
 
+        # if len(paths) == 0:
+        #     for i in range(1, 10):
+        #         path = get_file_path('textures', '%s_%d' % (tex_name, i), 'png')
+        #         if not os.path.exists(path):
+        #             break
+        #         paths.append(path)
+
         # Get an inventory of the existing texture files
         if len(paths) == 0:
             if image_seg:

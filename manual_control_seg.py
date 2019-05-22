@@ -61,6 +61,10 @@ def on_key_press(symbol, modifiers):
     elif symbol == key.ESCAPE:
         env.close()
         sys.exit(0)
+    elif symbol == key.S:
+         env.set_image_segmentation_mode(False)
+    elif symbol == key.D:
+         env.set_image_segmentation_mode(True)
 
     # Take a screenshot
     # UNCOMMENT IF NEEDED - Skimage dependency
