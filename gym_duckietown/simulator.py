@@ -158,6 +158,7 @@ class Simulator(gym.Env):
             seed=None,
             distortion=False,
             randomize_maps_on_reset=False,
+            image_seg=True
     ):
         """
 
@@ -207,6 +208,8 @@ class Simulator(gym.Env):
         self.domain_rand = domain_rand
         if self.domain_rand:
             self.randomizer = Randomizer()
+
+        self.image_seg = image_seg
 
         # Frame rate to run at
         self.frame_rate = frame_rate
@@ -340,11 +343,22 @@ class Simulator(gym.Env):
         ]
         self.ground_vlist = pyglet.graphics.vertex_list(4, ('v3f', verts))
 
+    def set_image_segmentation_mode(self, b):
+        self.image_seg = b
+        Texture.clear_cache()
+
+        for tile in self.grid:
+            rng = self.np_random if self.domain_rand else None
+            tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=self.image_seg)
+            tile['color'] = self._perturb([1, 1, 1], 0.2)
+
     def reset(self):
         """
         Reset the simulation at the start of a new episode
         This also randomizes many environment parameters (domain randomization)
         """
+
+        self.set_image_segmentation_mode(not self.image_seg)
 
         # Step count since episode start
         self.step_count = 0
@@ -430,7 +444,7 @@ class Simulator(gym.Env):
         for tile in self.grid:
             rng = self.np_random if self.domain_rand else None
             # Randomize the tile texture
-            tile['texture'] = Texture.get(tile['kind'], rng=rng)
+            tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=self.image_seg)
 
             # Random tile color multiplier
             tile['color'] = self._perturb([1, 1, 1], 0.2)

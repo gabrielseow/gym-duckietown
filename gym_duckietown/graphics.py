@@ -23,16 +23,28 @@ class Texture(object):
     tex_cache = {}
 
     @classmethod
-    def get(self, tex_name, rng=None):
+    def clear_cache(cls):
+        tex_cache = {}
+        tex_paths = {}
+
+    @classmethod
+    def get(self, tex_name, rng=None, image_seg=False):
         paths = self.tex_paths.get(tex_name, [])
 
         # Get an inventory of the existing texture files
         if len(paths) == 0:
-            for i in range(1, 10):
-                path = get_file_path('textures', '%s_%d' % (tex_name, i), 'png')
-                if not os.path.exists(path):
-                    break
-                paths.append(path)
+            if image_seg:
+                for i in range(1, 10):
+                    path = get_file_path('textures/image_seg', '%s_%d' % (tex_name, i), 'png')
+                    if not os.path.exists(path):
+                        break
+                    paths.append(path)
+            else:
+                for i in range(1, 10):
+                    path = get_file_path('textures', '%s_%d' % (tex_name, i), 'png')
+                    if not os.path.exists(path):
+                        break
+                    paths.append(path)
 
         assert len(paths) > 0, 'failed to load textures for name "%s"' % tex_name
 

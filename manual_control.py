@@ -18,6 +18,8 @@ from gym_duckietown.wrappers import UndistortWrapper
 
 # from experiments.utils import save_img
 
+default_env = 'Duckietown-udem1-v0'
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--env-name', default=None)
 parser.add_argument('--map-name', default='udem1')
@@ -40,7 +42,7 @@ if args.env_name and args.env_name.find('Duckietown') != -1:
         distortion = args.distortion,
     )
 else:
-    env = gym.make(args.env_name)
+    env = gym.make(default_env)
 
 env.reset()
 env.render()
@@ -61,6 +63,10 @@ def on_key_press(symbol, modifiers):
     elif symbol == key.ESCAPE:
         env.close()
         sys.exit(0)
+    elif symbol == key.S:
+        env.set_image_segmentation_mode(False)
+    elif symbol == key.D:
+        env.set_image_segmentation_mode(True)
 
     # Take a screenshot
     # UNCOMMENT IF NEEDED - Skimage dependency
