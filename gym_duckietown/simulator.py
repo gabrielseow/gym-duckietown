@@ -158,7 +158,7 @@ class Simulator(gym.Env):
             seed=None,
             distortion=False,
             randomize_maps_on_reset=False,
-            image_seg=True
+            image_seg=False
     ):
         """
 
@@ -358,7 +358,7 @@ class Simulator(gym.Env):
         This also randomizes many environment parameters (domain randomization)
         """
 
-        self.set_image_segmentation_mode(not self.image_seg)
+        self.set_image_segmentation_mode(self.image_seg)
 
         # Step count since episode start
         self.step_count = 0
@@ -1682,7 +1682,7 @@ class Simulator(gym.Env):
         )
 
         # Display position/state information
-        if mode != "free_cam":
+        if mode != "free_cam" and mode != "image_seg":
             x, y, z = self.cur_pos
             self.text_label.text = "pos: (%.2f, %.2f, %.2f), angle: %d, steps: %d, speed: %.2f m/s" % (
                 x, y, z,
