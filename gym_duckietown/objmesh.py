@@ -29,6 +29,22 @@ class ObjMesh(object):
 
         return mesh
 
+    def reload_tex(self, mtl):
+        # if 'map_Kd' in mtl:
+        #     texture = load_texture(mtl['map_Kd'])
+        # else:
+        #     texture = None
+        # self.textures.append(texture)
+
+        if 'map_Kd' in mtl:
+            tex_path = mtl['map_Kd']
+
+            from gym_duckietown.simulator import Simulator
+            texture = Texture.get_by_path(tex_path, image_seg=Simulator.image_seg)
+        else:
+            texture = None
+        self.textures.append(texture)
+
     def __init__(self, file_path):
         """
         Load an OBJ model file
@@ -204,13 +220,24 @@ class ObjMesh(object):
             )
 
             mtl = chunk['mtl']
+            #self.reload_tex(mtl)
+
             if 'map_Kd' in mtl:
-                texture = load_texture(mtl['map_Kd'])
+                tex_path = mtl['map_Kd']
+
+                from gym_duckietown.simulator import Simulator
+                texture = Texture.get_by_path(tex_path, image_seg=Simulator.image_seg)
             else:
                 texture = None
-
-            self.vlists.append(vlist)
             self.textures.append(texture)
+
+
+            # if 'map_Kd' in mtl:
+            #     texture = load_texture(mtl['map_Kd'])
+            # else:
+            #     texture = None
+            # self.textures.append(texture)
+            self.vlists.append(vlist)
 
     def _load_mtl(self, model_file):
         model_dir, file_name = os.path.split(model_file)
@@ -222,7 +249,7 @@ class ObjMesh(object):
 
         # Determine the default texture path for the default material
         tex_name = file_name.split('.')[0]
-			
+
         tex_path = get_file_path('textures', tex_name, 'png')
         if os.path.exists(tex_path):
             default_mtl['map_Kd'] = tex_path
@@ -284,7 +311,7 @@ class ObjMesh(object):
 
             if texture:
                 gl.glEnable(gl.GL_TEXTURE_2D)
-                gl.glBindTexture(texture.target, texture.id)
+                gl.glBindTexture(texture.tex.target, texture.tex.id)
             else:
                 gl.glDisable(gl.GL_TEXTURE_2D)
 

@@ -158,6 +158,7 @@ def update(dt):
             env.set_image_segmentation_mode(True)
             awaiting_seg_image = True
 
+
 pyglet.clock.schedule_interval(update, 1.0 / env.unwrapped.frame_rate)
 
 # Enter main event loop

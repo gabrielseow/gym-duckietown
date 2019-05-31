@@ -29,6 +29,19 @@ class Texture(object):
         tex_paths = {}
 
     @classmethod
+    def get_by_path(self, path, rng=None, image_seg=False):
+        paths = []
+
+        if image_seg:
+            path.replace('textures', '\\textures\\image_seg\\')
+        paths.append(path)
+
+        if path not in self.tex_cache:
+            self.tex_cache[path] = Texture(load_texture(path))
+
+        return self.tex_cache[path]
+
+    @classmethod
     def get(self, tex_name, rng=None, image_seg=False):
         paths = self.tex_paths.get(tex_name, [])
 

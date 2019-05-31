@@ -107,7 +107,6 @@ MAX_SPAWN_ATTEMPTS = 5000
 
 LanePosition0 = namedtuple('LanePosition', 'dist dot_dir angle_deg angle_rad')
 
-
 class LanePosition(LanePosition0):
 
     def as_json_dict(self):
@@ -129,6 +128,8 @@ class Simulator(gym.Env):
     Draws a road with turns using OpenGL, and simulates
     basic differential-drive dynamics.
     """
+
+    image_seg = False
 
     metadata = {
         'render.modes': ['human', 'rgb_array', 'app'],
@@ -156,8 +157,7 @@ class Simulator(gym.Env):
             user_tile_start=None,
             seed=None,
             distortion=False,
-            randomize_maps_on_reset=False,
-            image_seg=False
+            randomize_maps_on_reset=False
     ):
         """
 
@@ -211,8 +211,6 @@ class Simulator(gym.Env):
         self.horizon_color = BLUE_SKY_COLOR
 
         self.is_lighting_enabled = True
-
-        self.image_seg = image_seg
 
         # Frame rate to run at
         self.frame_rate = frame_rate
@@ -369,7 +367,7 @@ class Simulator(gym.Env):
             gl.glDisable(gl.GL_COLOR_MATERIAL)
 
     def set_image_segmentation_mode(self, b):
-        self.image_seg = b
+        Simulator.image_seg = b
 
         Texture.clear_cache()
 
@@ -395,7 +393,7 @@ class Simulator(gym.Env):
 
         for tile in self.grid:
             rng = self.np_random if self.domain_rand else None
-            tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=self.image_seg)
+            tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=Simulator.image_seg)
             tile['color'] = self._perturb([1, 1, 1], 0.2)
 
     def reset(self):
@@ -421,7 +419,7 @@ class Simulator(gym.Env):
         # Horizon color
         # Note: we explicitly sample white and grey/black because
         # these colors are easily confused for road and lane markings
-        if self.image_seg:
+        if Simulator.image_seg:
             self.horizon_color = [0.0, 0.0, 0.0]
         elif self.domain_rand:
             horz_mode = self.randomization_settings['horz_mode']
@@ -436,7 +434,7 @@ class Simulator(gym.Env):
         else:
             self.horizon_color = BLUE_SKY_COLOR
 
-        self.set_image_segmentation_mode(self.image_seg)
+        self.set_image_segmentation_mode(Simulator.image_seg)
 
         # Ground color
         self.ground_color = self._perturb(GROUND_COLOR, 0.3)
@@ -458,7 +456,7 @@ class Simulator(gym.Env):
 
         # Create the vertex list for the ground/noise triangles
         # These are distractors, junk on the floor
-        numTris = 12
+        numTris = 0 if Simulator.image_seg else 12
         verts = []
         colors = []
         for _ in range(0, 3 * numTris):
@@ -474,7 +472,7 @@ class Simulator(gym.Env):
         for tile in self.grid:
             rng = self.np_random if self.domain_rand else None
             # Randomize the tile texture
-            tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=self.image_seg)
+            tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=Simulator.image_seg)
 
             if self.domain_rand:
                 # Random tile color multiplier
