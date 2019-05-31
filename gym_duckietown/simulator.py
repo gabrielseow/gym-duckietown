@@ -366,6 +366,21 @@ class Simulator(gym.Env):
             gl.glDisable(gl.GL_LIGHTING)
             gl.glDisable(gl.GL_COLOR_MATERIAL)
 
+    def create_noise_tris(self):
+        # Create the vertex list for the ground/noise triangles
+        # These are distractors, junk on the floor
+        numTris = 0 if Simulator.image_seg else 12
+        verts = []
+        colors = []
+        for _ in range(0, 3 * numTris):
+            p = self.np_random.uniform(low=[-20, -0.6, -20], high=[20, -0.3, 20], size=(3,))
+            c = self.np_random.uniform(low=0, high=0.9)
+            c = self._perturb([c, c, c], 0.1)
+            verts += [p[0], p[1], p[2]]
+            colors += [c[0], c[1], c[2]]
+        import pyglet
+        self.tri_vlist = pyglet.graphics.vertex_list(3 * numTris, ('v3f', verts), ('c3f', colors))
+
     def set_image_segmentation_mode(self, b):
         Simulator.image_seg = b
 
@@ -398,6 +413,8 @@ class Simulator(gym.Env):
 
         for obj in self.objects:
             obj.mesh.reload_tex(True)
+
+        self.create_noise_tris()
 
     def reset(self):
         """
@@ -457,19 +474,7 @@ class Simulator(gym.Env):
         # Camera offset for use in free camera mode
         self.cam_offset = np.array([0, 0, 0])
 
-        # Create the vertex list for the ground/noise triangles
-        # These are distractors, junk on the floor
-        numTris = 0 if Simulator.image_seg else 12
-        verts = []
-        colors = []
-        for _ in range(0, 3 * numTris):
-            p = self.np_random.uniform(low=[-20, -0.6, -20], high=[20, -0.3, 20], size=(3,))
-            c = self.np_random.uniform(low=0, high=0.9)
-            c = self._perturb([c, c, c], 0.1)
-            verts += [p[0], p[1], p[2]]
-            colors += [c[0], c[1], c[2]]
-        import pyglet
-        self.tri_vlist = pyglet.graphics.vertex_list(3 * numTris, ('v3f', verts), ('c3f', colors))
+
 
         # Randomize tile parameters
         for tile in self.grid:
