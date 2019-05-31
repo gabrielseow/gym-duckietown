@@ -389,9 +389,16 @@ class Simulator(gym.Env):
         self.is_lighting_enabled = not b
 
         if b:
+            # Ground color
+            self.ground_color = [0.0, 0.0, 0.0]
+
+
             # Sky color
             self.horizon_color = [0.0, 0.0, 0.0]
         else:
+            # Ground color
+            self.ground_color = self._perturb(GROUND_COLOR, 0.3)
+
             # Sky color
             if self.domain_rand:
                 horz_mode = self.randomization_settings['horz_mode']
@@ -455,9 +462,6 @@ class Simulator(gym.Env):
             self.horizon_color = BLUE_SKY_COLOR
 
         self.set_image_segmentation_mode(Simulator.image_seg)
-
-        # Ground color
-        self.ground_color = self._perturb(GROUND_COLOR, 0.3)
 
         # Distance between the robot's wheels
         self.wheel_dist = self._perturb(WHEEL_DIST)
