@@ -33,7 +33,8 @@ class Texture(object):
         paths = []
 
         if image_seg:
-            path.replace('textures', '\\textures\\image_seg\\')
+            path = path.replace('/textures/', '/textures/image_seg/')
+            path = path.replace('\\textures\\', '\\textures\\image_seg\\')
         paths.append(path)
 
         if path not in self.tex_cache:

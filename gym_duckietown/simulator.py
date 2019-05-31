@@ -396,6 +396,9 @@ class Simulator(gym.Env):
             tile['texture'] = Texture.get(tile['kind'], rng=rng, image_seg=Simulator.image_seg)
             tile['color'] = self._perturb([1, 1, 1], 0.2)
 
+        for obj in self.objects:
+            obj.mesh.reload_tex(True)
+
     def reset(self):
         """
         Reset the simulation at the start of a new episode

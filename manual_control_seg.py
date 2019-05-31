@@ -114,6 +114,9 @@ def update(dt):
             action = np.array([0.35, -1])
         if key_handler[key.SPACE]:
             action = np.array([0, 0])
+        if key_handler[key.S]:
+            env.render(mode="image_seg")
+            env.set_image_segmentation_mode(True)
 
         # Speed boost
         if key_handler[key.LSHIFT]:

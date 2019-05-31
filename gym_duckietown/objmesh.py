@@ -29,21 +29,27 @@ class ObjMesh(object):
 
         return mesh
 
-    def reload_tex(self, mtl):
+    def reload_tex(self, clear=False):
         # if 'map_Kd' in mtl:
         #     texture = load_texture(mtl['map_Kd'])
         # else:
         #     texture = None
         # self.textures.append(texture)
-
-        if 'map_Kd' in mtl:
-            tex_path = mtl['map_Kd']
+        if 'map_Kd' in self.mtl:
+            tex_path = self.mtl['map_Kd']
 
             from gym_duckietown.simulator import Simulator
             texture = Texture.get_by_path(tex_path, image_seg=Simulator.image_seg)
         else:
             texture = None
-        self.textures.append(texture)
+
+        if clear:
+            textures_size = len(self.textures)
+            self.textures = []
+            for i in range(textures_size):
+                self.textures.append(texture)
+        else:
+            self.textures.append(texture)
 
     def __init__(self, file_path):
         """
@@ -219,17 +225,17 @@ class ObjMesh(object):
                 ('c3f', list_color[start_idx:end_idx, :, :].reshape(-1))
             )
 
-            mtl = chunk['mtl']
-            #self.reload_tex(mtl)
+            self.mtl = chunk['mtl']
+            self.reload_tex()
 
-            if 'map_Kd' in mtl:
-                tex_path = mtl['map_Kd']
-
-                from gym_duckietown.simulator import Simulator
-                texture = Texture.get_by_path(tex_path, image_seg=Simulator.image_seg)
-            else:
-                texture = None
-            self.textures.append(texture)
+            # if 'map_Kd' in mtl:
+            #     tex_path = mtl['map_Kd']
+            #
+            #     from gym_duckietown.simulator import Simulator
+            #     texture = Texture.get_by_path(tex_path, image_seg=Simulator.image_seg)
+            # else:
+            #     texture = None
+            # self.textures.append(texture)
 
 
             # if 'map_Kd' in mtl:
