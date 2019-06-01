@@ -20,7 +20,7 @@ from gym_duckietown.wrappers import UndistortWrapper
 
 image_save_requested = False
 awaiting_seg_image = False
-image_save_wait_count = 5
+image_save_wait_count = 15
 image_save_counter = 0
 
 parser = argparse.ArgumentParser()
@@ -136,6 +136,14 @@ def update(dt):
         env.reset()
         env.render()
 
+    global image_save_wait_count
+    global image_save_counter
+
+    image_save_counter += 1
+    if image_save_counter >= image_save_wait_count:
+        image_save_counter = 0
+        image_save_requested = True
+
     # global awaiting_seg_image
     # if awaiting_seg_image:
     #     awaiting_seg_image = False
@@ -152,12 +160,12 @@ def update(dt):
         im = Image.fromarray(obs)
 
         if awaiting_seg_image:
-            im.save('ImageSegData/frame_%s_seg.png' % env.step_count)
+            im.save('ImageSegData/labels/frame_%s.png' % env.step_count)
             awaiting_seg_image = False
             image_save_requested = False
             env.set_image_segmentation_mode(False)
         else:
-            im.save('ImageSegData/frame_%s.png' % env.step_count)
+            im.save('ImageSegData/images/frame_%s.png' % str(int(env.step_count)+1))
             env.set_image_segmentation_mode(True)
             awaiting_seg_image = True
 
