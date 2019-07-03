@@ -148,7 +148,6 @@ class Worker(mp.Process):
                 state, reward, done, _ = self.env.step(np_action)
                 state = torch.tensor(preprocess_state(state))
                 epr += reward
-                #reward = np.clip(reward, -1, 1)
                 done = done or episode_length >= 1e4
 
                 if render_this_episode:
@@ -167,6 +166,14 @@ class Worker(mp.Process):
                     interp_factor = 1 if self.info['episodes'][0] == 1 else 1 - 0.99
                     self.info['run_epr'].mul_(1 - interp_factor).add_(interp_factor * epr)
                     self.info['run_loss'].mul_(1 - interp_factor).add_(interp_factor * eploss)
+
+                    if self.identifier == 0:
+                        # Book keeping for statistics
+                        timestamp = time.gmtime(time.time() - start_time)
+                        self.info['timestamps'].append(timestamp)
+                        self.info['ep_rewards'].append(reward)
+                        self.info['ep_losses'].append(loss)
+
 
                 # print training info every minute
                 if self.identifier == 0 and time.time() - last_disp_time > 60:

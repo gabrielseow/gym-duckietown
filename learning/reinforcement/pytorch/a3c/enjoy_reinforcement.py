@@ -14,7 +14,7 @@ import gym
 from learning.reinforcement.pytorch.a3c import a3c_cnn_discrete_gru as a3c
 from learning.utils.env import launch_env
 from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-    DtRewardWrapper, ActionWrapper, ResizeWrapper, DiscreteWrapper
+    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper
 
 
 def preprocess_state(obs):
@@ -28,7 +28,7 @@ def _enjoy(args):
     # env = NormalizeWrapper(env)
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
     # env = ActionWrapper(env)
-    env = DtRewardWrapper(env)
+    env = DtRewardWrapper2(env)
     env = DiscreteWrapper(env)
 
     shape_obs_space = env.observation_space.shape  # (3, 120, 160)
@@ -43,8 +43,8 @@ def _enjoy(args):
 
     checkpoint = torch.load(path)
     global_net = a3c.Net(channels=1, num_actions=shape_action_space)
-    # global_net.load_state_dict(checkpoint['model_state_dict'])
-    global_net.load_state_dict(checkpoint)
+    global_net.load_state_dict(checkpoint['model_state_dict'])
+    #global_net.load_state_dict(checkpoint)
     global_net.eval()
 
     state = torch.tensor(preprocess_state(env.reset()))
@@ -78,5 +78,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model-dir', type=str, default='models')  # Name of the directory where the models are saved
     parser.add_argument('--model-file', type=str,
-                        default='2019-06-26_13-34-15_a3c-disc-duckie.pth')  # Name of the model file
+                        default='2019-06-27_06-24-24_a3c-disc-duckie.pth')  # Name of the model file
     _enjoy(parser.parse_args())

@@ -44,7 +44,11 @@ def _train(args):
     global_net = a3c.Net(channels=1, num_actions=shape_action_space)
     global_net.share_memory()  # share the global parameters in multiprocessing
     optimizer = CustomOptimizer.SharedAdam(global_net.parameters(), lr=args.learning_rate)
-    info = {k: torch.DoubleTensor([0]).share_memory_() for k in ['run_epr', 'run_loss', 'episodes', 'frames']}
+    info = {k: torch.DoubleTensor([0]).share_memory_() for k in
+            ['run_epr', 'run_loss', 'episodes', 'frames']}
+    info['ep_rewards'] = []
+    info['ep_losses'] = []
+    info['timestamps'] = []
 
     if args.model_file is not None:
         cwd = os.getcwd()
