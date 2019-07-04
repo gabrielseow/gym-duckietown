@@ -50,6 +50,10 @@ def _enjoy(args):
     state = torch.tensor(preprocess_state(env.reset()))
     done = True
 
+    steps_until_new_action = 0
+    step_evaluation_frequency = 5
+    action = 0
+
     while True:
         with torch.no_grad():
             if done:
@@ -57,12 +61,16 @@ def _enjoy(args):
             else:
                 hx = hx.detach()
 
+            steps_until_new_action -= 1
+
             # Inference
             value, logit, hx = global_net.forward((state.view(-1, 1, 80, 80), hx))
             action_log_probs = F.log_softmax(logit, dim=-1)
 
-            # Take action with highest probability
-            action = action_log_probs.max(1, keepdim=True)[1].numpy()
+            if steps_until_new_action <= 0:
+                # Take action with highest probability
+                action = action_log_probs.max(1, keepdim=True)[1].numpy()
+                steps_until_new_action = step_evaluation_frequency
 
             # Perform action
             state, reward, done, _ = env.step(action)
