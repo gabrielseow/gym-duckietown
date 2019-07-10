@@ -1,6 +1,7 @@
 **
 !gym_duckietown/**
 !experiments/**
+!learning/**
 !docker/**
 !scripts/**
 !**/*py
