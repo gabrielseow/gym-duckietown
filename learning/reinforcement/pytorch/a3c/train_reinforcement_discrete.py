@@ -92,7 +92,7 @@ def _train(args):
                 # directory already exists
                 pass
 
-            filename = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S_") + 'a3c-disc-duckie.pth'
+            filename = args.start_date + args.experiment_name + '.pth'
             path = os.path.join(cwd, filedir, filename)
 
             torch.save({
@@ -117,6 +117,8 @@ if __name__ == '__main__':
     parser.add_argument('--model_dir', type=str, default='models')  # Name of the directory where the models are saved
     parser.add_argument('--model_file', type=str, default=None)  # Name of the model to load
     parser.add_argument('--graphical_output', default=False)  # Whether to render the observation in a window
+    parser.add_argument('--experiment_name', type=str, default='a3c-disc-duckie_a3')
+    parser.add_argument('--start_date', type=str, default=datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S_"))
     parser.add_argument('--env', default=None)
     parser.add_argument('--save_on_interrupt', default=True)
     _train(parser.parse_args())

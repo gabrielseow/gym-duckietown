@@ -103,10 +103,10 @@ class Worker(mp.Process):
 
         # We have to initialize the gym here, otherwise the multiprocessing will crash
         self.env = launch_env()
-        #self.env = ResizeWrapper(self.env)
-        #self.env = NormalizeWrapper(self.env)
+        # self.env = ResizeWrapper(self.env)
+        # self.env = NormalizeWrapper(self.env)
         self.env = ImgWrapper(self.env)  # to make the images from 160x120x3 into 3x160x120
-        #self.env = ActionWrapper(self.env)
+        # self.env = ActionWrapper(self.env)
         self.env = DtRewardWrapper2(self.env)
         self.env = DiscreteWrapper(self.env)
 
@@ -121,10 +121,14 @@ class Worker(mp.Process):
         start_time = last_disp_time = time.time()
         episode_length, epr, eploss, done = 0, 0, 0, True
 
+        if self.identifier == 0:  # Create header of log csv
+            write_log(self.args, ['Frame', 'Time', 'Episode', 'Reward', 'Loss'])
+
         render_this_episode = False
 
         while self.info['frames'][0] <= self.args.max_steps:
-            render_this_episode = self.args.graphical_output and (render_this_episode or (self.info['episodes'] % 10 == 0 and self.identifier == 0))
+            render_this_episode = self.args.graphical_output and (
+                    render_this_episode or (self.info['episodes'] % 10 == 0 and self.identifier == 0))
 
             # Sync parameters from global net
             self.local_net.load_state_dict(self.global_net.state_dict())
@@ -152,7 +156,7 @@ class Worker(mp.Process):
 
                 if render_this_episode:
                     self.env.render()
-                    #print('Action: ', np_action)
+                    # print('Action: ', np_action)
 
                 self.info['frames'].add_(1)
                 num_frames = int(self.info['frames'].item())
@@ -174,14 +178,15 @@ class Worker(mp.Process):
                         self.info['ep_rewards'].append(reward)
                         self.info['ep_losses'].append(loss)
 
-
                 # print training info every minute
-                if self.identifier == 0 and time.time() - last_disp_time > 60:
+                if self.identifier == 0 and time.time() - last_disp_time > 30:
                     elapsed = time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - start_time))
                     print('time {}, episodes {:.0f}, frames {:.1f}M, mean epr {:.2f}, run loss {:.2f}'
                           .format(elapsed, self.info['episodes'].item(), num_frames / 1e6,
                                   self.info['run_epr'].item(), self.info['run_loss'].item()))
                     last_disp_time = time.time()
+                    write_log(self.args, [num_frames, elapsed, self.info['episodes'].item(),
+                                          self.info['run_epr'].item(), self.info['run_loss'].item()])
 
                 # reset buffers / environment
                 if done:
@@ -217,6 +222,23 @@ class Worker(mp.Process):
             # Backpropagation
             self.optimizer.step()
 
+
 def discount(x, gamma):
     from scipy.signal import lfilter
     return lfilter([1], [1, -gamma], x[::-1])[::-1]  # discounted rewards one liner
+
+
+def write_log(args, values):
+    # Create file and write header
+    import os
+    cwd = os.getcwd()
+    filedir = args.model_dir
+
+    filename = args.start_date + args.experiment_name + '.csv'
+    path = os.path.join(cwd, filedir, filename)
+
+    mode = 'a' if os.path.exists(path) else 'w'
+
+    with open(path, mode) as f:
+        separator = ','
+        f.write("%s\n" % (separator.join([str(v) for v in values])))
