@@ -101,6 +101,9 @@ class Worker(mp.Process):
         from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
             DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9
 
+        if self.identifier == 0:  # Create header of log csv
+            write_log(self.args, ['Frame', 'Time', 'Episode', 'Reward', 'Loss'])
+
         # We have to initialize the gym here, otherwise the multiprocessing will crash
         self.env = launch_env()
         # self.env = ResizeWrapper(self.env)
@@ -120,9 +123,6 @@ class Worker(mp.Process):
         # bookkeeping
         start_time = last_disp_time = time.time()
         episode_length, epr, eploss, done = 0, 0, 0, True
-
-        if self.identifier == 0:  # Create header of log csv
-            write_log(self.args, ['Frame', 'Time', 'Episode', 'Reward', 'Loss'])
 
         render_this_episode = False
 
