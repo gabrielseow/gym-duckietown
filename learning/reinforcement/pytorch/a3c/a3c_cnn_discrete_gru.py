@@ -161,7 +161,7 @@ class Worker(mp.Process):
                 self.info['frames'].add_(1)
                 num_frames = int(self.info['frames'].item())
 
-                if done:  # update shared data
+                if done:  # Statistics
                     self.info['episodes'] += 1
 
                     # Moving average statistics:
@@ -171,12 +171,29 @@ class Worker(mp.Process):
                     self.info['run_epr'].mul_(1 - interp_factor).add_(interp_factor * epr)
                     self.info['run_loss'].mul_(1 - interp_factor).add_(interp_factor * eploss)
 
-                    if self.identifier == 0:
-                        # Book keeping for statistics
-                        timestamp = time.gmtime(time.time() - start_time)
-                        self.info['timestamps'].append(timestamp)
-                        self.info['ep_rewards'].append(reward)
-                        self.info['ep_losses'].append(loss)
+                    # Save model every 100_000 episodes
+                    if self.args.save_models and self.info['episodes'][0] % self.args.save_frequency == 0:
+                        cwd = os.getcwd()
+                        filedir = self.args.model_dir
+
+                        try:
+                            os.makedirs(os.path.join(cwd, filedir))
+                        except FileExistsError:
+                            # directory already exists
+                            pass
+
+                        filename = self.args.start_date + self.args.experiment_name + '-' + str(
+                            self.info['episodes'].item()) + '.pth'
+                        path = os.path.join(cwd, filedir, filename)
+
+                        torch.save({
+                            'model_state_dict': self.global_net.state_dict(),
+                            'optimizer_state_dict': self.optimizer.state_dict(),
+                            'info': self.info
+                        }, path)
+
+                        # torch.save(global_net.state_dict(), path)
+                        print("Saved model to:", path)
 
                 # print training info every minute
                 if self.identifier == 0 and time.time() - last_disp_time > 30:
@@ -194,24 +211,30 @@ class Worker(mp.Process):
                     episode_length, epr, eploss = 0, 0, 0
                     state = torch.tensor(preprocess_state(self.env.reset()))
 
+                # Keep track of data for gradient calculations
                 values.append(value)
                 log_probs.append(action_log_probs)
                 actions.append(action)
                 rewards.append(reward)
+            # -- END STEPS UNTIL SYNC
 
             # Reached sync step -> We need a terminal value
             # If the episode did not end use estimation of V(s) to bootstrap
-            next_value = torch.zeros(1, 1) if done else self.local_net.forward((state.unsqueeze(0), hx))[0]
+            next_value = torch.zeros(1, 1) if done else \
+                self.local_net.forward((state.unsqueeze(0), hx))[0]
+
             values.append(next_value.detach())
 
             # Calculate loss
-            loss = self.calc_loss(self.args, torch.cat(values), torch.cat(log_probs), torch.cat(actions),
-                                  np.asarray(rewards))
+            loss = self.calc_loss(self.args, torch.cat(values), torch.cat(log_probs),
+                                  torch.cat(actions), np.asarray(rewards))
             eploss += loss.item()
 
             # Calculate gradient
-            self.optimizer.zero_grad()
-            loss.backward()
+            self.optimizer.zero_grad()  # reset gradients
+            loss.backward()  # calculate gradients
+
+            # prevent exploding gradients
             torch.nn.utils.clip_grad_norm_(self.local_net.parameters(), 40)
 
             # sync gradients with global network
@@ -229,7 +252,7 @@ def discount(x, gamma):
 
 
 def write_log(args, values):
-    # Create file and write header
+    # Write a row of a csv file
     import os
     cwd = os.getcwd()
     filedir = args.model_dir
