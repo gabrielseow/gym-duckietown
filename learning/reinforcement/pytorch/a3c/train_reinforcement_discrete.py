@@ -5,6 +5,12 @@ import os
 import sys
 import numpy as np
 
+import sys
+sys.path.append(os.path.join(os.getcwd(), "gym_duckietown"))
+sys.path.append(os.getcwd())
+sys.path.append(os.path.join(os.getcwd(), "learning"))
+sys.path.append(os.path.join(os.getcwd(), "/learning/utils_global"))
+
 # Duckietown Specific
 from learning.reinforcement.pytorch.a3c import a3c_cnn_discrete_gru as a3c
 from learning.reinforcement.pytorch.a3c import CustomOptimizer
