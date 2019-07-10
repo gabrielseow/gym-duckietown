@@ -11,7 +11,7 @@ from learning.reinforcement.pytorch.a3c import CustomOptimizer
 from learning.reinforcement.pytorch.utils import seed
 from learning.utils.env import launch_env
 from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper
+    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9
 
 # PyTorch
 import torch
@@ -32,7 +32,7 @@ def _train(args):
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
     # env = ActionWrapper(env)
     env = DtRewardWrapper2(env)
-    env = DiscreteWrapper(env)
+    env = DiscreteWrapper_9(env)
 
     # Set seeds
     seed(args.seed)

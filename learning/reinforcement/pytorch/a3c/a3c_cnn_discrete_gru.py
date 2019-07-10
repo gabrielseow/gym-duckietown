@@ -99,7 +99,7 @@ class Worker(mp.Process):
     def run(self):
         from learning.utils.env import launch_env
         from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-            DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper
+            DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9
 
         # We have to initialize the gym here, otherwise the multiprocessing will crash
         self.env = launch_env()
@@ -108,7 +108,7 @@ class Worker(mp.Process):
         self.env = ImgWrapper(self.env)  # to make the images from 160x120x3 into 3x160x120
         # self.env = ActionWrapper(self.env)
         self.env = DtRewardWrapper2(self.env)
-        self.env = DiscreteWrapper(self.env)
+        self.env = DiscreteWrapper_9(self.env)
 
         # Set seeds so we can reproduce our results
         self.env.seed(self.args.seed + self.identifier)
@@ -196,7 +196,7 @@ class Worker(mp.Process):
                         print("Saved model to:", path)
 
                 # print training info every minute
-                if self.identifier == 0 and time.time() - last_disp_time > 30:
+                if self.identifier == 0 and time.time() - last_disp_time > 60:
                     elapsed = time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - start_time))
                     print('time {}, episodes {:.0f}, frames {:.1f}M, mean epr {:.2f}, run loss {:.2f}'
                           .format(elapsed, self.info['episodes'].item(), num_frames / 1e6,
