@@ -2,6 +2,7 @@
 !gym_duckietown/**
 !experiments/**
 !docker/**
+!scripts/**
 !**/*py
 !**/*yaml
 !Makefile
