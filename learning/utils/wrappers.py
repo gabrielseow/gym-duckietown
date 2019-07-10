@@ -34,7 +34,7 @@ class DiscreteWrapper_9(gym.ActionWrapper):
 
     def __init__(self, env):
         gym.ActionWrapper.__init__(self, env)
-        self.action_space = spaces.Discrete(3)
+        self.action_space = spaces.Discrete(9)
 
     def action(self, action):
         # Left
