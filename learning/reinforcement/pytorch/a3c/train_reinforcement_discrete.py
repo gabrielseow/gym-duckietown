@@ -120,7 +120,7 @@ if __name__ == '__main__':
     parser.add_argument("--gamma", default=0.99, type=float)  # Discount factor
     parser.add_argument("--num_workers", default=16, type=int)  # Number of processes to spawn
     parser.add_argument("--save_models", default=True)  # Whether or not models are saved
-    parser.add_argument("--save_frequency", default=100_000, type=int) # Episodes to wait before saving the model
+    parser.add_argument("--save_frequency", default=1_000, type=int)  # Episodes to wait before saving the model
     parser.add_argument('--model_dir', type=str, default='models')  # Name of the directory where the models are saved
     parser.add_argument('--model_file', type=str, default=None)  # Name of the model to load
     parser.add_argument('--graphical_output', default=False)  # Whether to render the observation in a window

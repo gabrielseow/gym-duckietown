@@ -171,7 +171,7 @@ class Worker(mp.Process):
                     self.info['run_epr'].mul_(1 - interp_factor).add_(interp_factor * epr)
                     self.info['run_loss'].mul_(1 - interp_factor).add_(interp_factor * eploss)
 
-                    # Save model every 100_000 episodes
+                    # Save model every 1_000 episodes
                     if self.args.save_models and self.info['episodes'][0] % self.args.save_frequency == 0:
                         cwd = os.getcwd()
                         filedir = self.args.model_dir
@@ -197,7 +197,7 @@ class Worker(mp.Process):
 
                 # print training info every minute
                 if self.identifier == 0 and time.time() - last_disp_time > 60:
-                    elapsed = time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - start_time))
+                    elapsed = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
                     print('time {}, episodes {:.0f}, frames {:.1f}M, mean epr {:.2f}, run loss {:.2f}'
                           .format(elapsed, self.info['episodes'].item(), num_frames / 1e6,
                                   self.info['run_epr'].item(), self.info['run_loss'].item()))
