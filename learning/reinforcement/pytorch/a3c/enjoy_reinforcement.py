@@ -14,7 +14,7 @@ import gym
 from learning.reinforcement.pytorch.a3c import a3c_cnn_discrete_gru as a3c
 from learning.utils.env import launch_env
 from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper
+    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9
 
 
 def preprocess_state(obs):
@@ -29,7 +29,7 @@ def _enjoy(args):
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
     # env = ActionWrapper(env)
     env = DtRewardWrapper2(env)
-    env = DiscreteWrapper(env)
+    env = DiscreteWrapper_9(env)
 
     shape_obs_space = env.observation_space.shape  # (3, 120, 160)
     shape_action_space = env.action_space.n  # (2,)
