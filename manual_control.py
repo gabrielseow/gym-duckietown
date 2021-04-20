@@ -32,6 +32,17 @@ parser.add_argument('--frame-skip', default=1, type=int, help='number of frames 
 parser.add_argument('--seed', default=1, type=int, help='seed')
 args = parser.parse_args()
 
+# Experiment to find out the problem with map1-seed3
+'''
+env = DuckietownEnv(
+    map_name = 'map1',
+    domain_rand = False,
+    draw_bbox = False,
+    max_steps = 1500,
+    seed = 3
+)
+'''
+
 env = launch_env()
 #env = ResizeWrapper(env)
 #env = NormalizeWrapper(env)

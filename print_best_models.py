@@ -23,8 +23,8 @@ def make_environment(map_name, seed):
     ) 
     return env
 
-def load_actions(model_path, seed):
-    env = make_environment('map1', seed)
+def load_actions(model_path, map_name, seed):
+    env = make_environment(map_name, seed)
     # env = ResizeWrapper(env)
     # env = NormalizeWrapper(env)
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
@@ -113,17 +113,20 @@ seeds = {
 "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
 }
 
-rewards = {}
+if __name__ == '__main__':
 
-for seed in seeds["map1"]:
-    seed_results = []
-    for file in os.listdir(directory):
-        filename = os.fsdecode(file)
+    rewards = {}
 
-        if filename.endswith(".pth"): 
-            actions, rewards = load_actions(directory+filename, seed)
-            seed_results.append(filename + " Rewards: " + str(rewards))
-    print("Seed ", seed)
-    for result in seed_results:
-        print(result)
+    for seed in seeds["map1"]:
+        seed_results = []
+        for file in os.listdir(directory):
+            filename = os.fsdecode(file)
+
+            if filename.endswith(".pth"): 
+                actions, rewards = load_actions(directory+filename, 'map1', seed)
+                seed_results.append(filename + " Rewards: " + str(rewards))
+
+        print("Seed", seed)
+        for result in seed_results:
+            print(result)
 
