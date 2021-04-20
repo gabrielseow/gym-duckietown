@@ -51,7 +51,7 @@ def _enjoy(args):
     done = True
 
     steps_until_new_action = 0
-    step_evaluation_frequency = 5
+    step_evaluation_frequency = 1
     action = 0
 
     while True:

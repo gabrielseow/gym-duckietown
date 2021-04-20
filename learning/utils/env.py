@@ -8,7 +8,7 @@ def launch_env(id=None):
         # Launch the environment
         from gym_duckietown.simulator import Simulator
         env = DuckietownEnv(
-            seed=123,  # random seed
+            seed=2,  # random seed
             map_name="map1",
             max_steps=500001,  # we don't want the gym to reset itself
             domain_rand=0,
