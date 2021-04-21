@@ -105,7 +105,7 @@ class Worker(mp.Process):
             write_log(self.args, ['Frame', 'Time', 'Episode', 'Reward', 'Loss'])
 
         # We have to initialize the gym here, otherwise the multiprocessing will crash
-        self.env = launch_env()
+        self.env = launch_env(self.args.map_name)
         # self.env = ResizeWrapper(self.env)
         # self.env = NormalizeWrapper(self.env)
         self.env = ImgWrapper(self.env)  # to make the images from 160x120x3 into 3x160x120
@@ -174,7 +174,7 @@ class Worker(mp.Process):
                     # Save model every 1_000 episodes
                     if self.args.save_models and self.info['episodes'][0] % self.args.save_frequency == 0:
                         cwd = os.getcwd()
-                        filedir = self.args.model_dir
+                        filedir = self.args.save_dir
 
                         try:
                             os.makedirs(os.path.join(cwd, filedir))
@@ -255,7 +255,7 @@ def write_log(args, values):
     # Write a row of a csv file
     import os
     cwd = os.getcwd()
-    filedir = args.model_dir
+    filedir = args.save_dir
 
     filename = args.start_date + args.experiment_name + '.csv'
     path = os.path.join(cwd, filedir, filename)

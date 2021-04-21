@@ -32,7 +32,7 @@ def _train(args):
     if sys.version_info[0] > 2:
         mp.set_start_method('spawn')
 
-    env = launch_env()
+    env = launch_env(args.map_name)
     # env = ResizeWrapper(env)
     # env = NormalizeWrapper(env)
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
@@ -90,7 +90,7 @@ def _train(args):
 
         if args.save_models:
             cwd = os.getcwd()
-            filedir = args.model_dir
+            filedir = args.save_dir
 
             try:
                 os.makedirs(os.path.join(cwd, filedir))
@@ -128,6 +128,8 @@ if __name__ == '__main__':
     parser.add_argument('--start_date', type=str, default=datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S_"))
     parser.add_argument('--env', default=None)
     parser.add_argument('--save_on_interrupt', default=True)
+    parser.add_argument('--map_name', type=str, default=None)
+    parser.add_argument('--save_dir', type=str, default=None)
 
     args = parser.parse_args()
 
@@ -141,13 +143,16 @@ if __name__ == '__main__':
     # Select suitable pretrained model for transfer learning or further training
     model_dir = map1_model_dir
     model_file = map1_model
-    checkpoint = torch.load(model_dir + model_file)
-    checkpoint_steps = checkpoint['info']['frames'][0]
-    additional_steps = 10_000_000
+    model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
+    map_name = "map3"
+    save_dir = "./models/map3/"
+    max_steps = model_steps + 10_000_000
 
     # Manually change args to reflect choices
-    args.max_steps = checkpoint_steps + additional_steps
+    args.max_steps = max_steps
     args.model_dir = model_dir
     args.model_file = model_file
+    args.map_name = map_name
+    args.save_dir = save_dir
 
     _train(args)
