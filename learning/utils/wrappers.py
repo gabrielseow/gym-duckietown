@@ -62,6 +62,56 @@ class DiscreteWrapper_9(gym.ActionWrapper):
             assert False, "unknown action"
         return np.array(vels)
 
+class DiscreteWrapper_9_script(gym.ActionWrapper):
+    """
+    Discrete actions (left, right, forward) instead of continuous control.
+    9 Actions (4 angles left, 4 angles right, straight forward)
+    """
+
+    def __init__(self, env, actions):
+        gym.ActionWrapper.__init__(self, env)
+        self.action_space = spaces.Discrete(9)
+        self.actions = actions
+
+    def action(self, action):
+        return np.array(self.actions[action])
+
+class DiscreteWrapper_9_custom(gym.ActionWrapper):
+    """
+    Discrete actions (left, right, forward) instead of continuous control.
+    9 Actions (4 angles left, 4 angles right, straight forward)
+    """
+
+    def __init__(self, env):
+        gym.ActionWrapper.__init__(self, env)
+        self.action_space = spaces.Discrete(9)
+
+    def action(self, action):
+        # Left
+        if action == 0:
+            vels = [0.80, +1.0]
+        elif action == 1:
+            vels = [0.80, +.75]
+        elif action == 2:
+            vels = [0.80, +.5]
+        elif action == 3:
+            vels = [0.80, +.25]
+        # Right
+        elif action == 4:
+            vels = [0.80, -1.0]
+        elif action == 5:
+            vels = [0.80, -.75]
+        elif action == 6:
+            vels = [0.80, -.5]
+        elif action == 7:
+            vels = [0.80, -.25]
+        # Forward
+        elif action == 8:
+            vels = [1.0, +1.0]
+        else:
+            assert False, "unknown action"
+        return np.array(vels)
+
 
 class ResizeWrapper(gym.ObservationWrapper):
     def __init__(self, env=None, shape=(120, 160, 3)):

@@ -1,15 +1,10 @@
+import os
 import numpy as np
 from gym_duckietown.envs import DuckietownEnv
-from print_best_models import load_actions
+from generate_model_results import load_actions, make_environment
 
-def display_actions(map_name, seed, file_path):
-    env = DuckietownEnv(
-        map_name = map_name,
-        domain_rand = False,
-        draw_bbox = False,
-        max_steps = 1500,
-        seed = seed
-    )
+def display_actions_from_file(map_name, seed, file_path):
+    env = make_environment(map_name, seed)
 
     obs = env.reset()
     env.render()
@@ -30,7 +25,7 @@ def display_actions(map_name, seed, file_path):
 
     print("Total Reward", total_reward)
 
-def write_actions_to_file(actions, file_path):
+def write_actions_to_file(actions, directory, file_path):
     
     action_mapping = {
     # Left
@@ -47,20 +42,25 @@ def write_actions_to_file(actions, file_path):
         8:[0.44, 0.0]
     }
     
+    os.makedirs(directory, exist_ok=True)
     actions = np.array([action_mapping[action[0][0]] for action in actions])
-    print(actions)
 
     # dump the controls using numpy
     np.savetxt(file_path, actions, delimiter=',') 
 
 if __name__ == '__main__':
-    directory = "models\\map1\\"
-    filename = "2021-04-19_13-53-59_a3c-disc-duckie_a9-47000.0.pth"
+    model_dir = "models\\map1\\"
+    model_file_path = model_dir + "2021-04-19_13-53-59_a3c-disc-duckie_a9-47000.0.pth"
+
     map_name = 'map1'
     seed = 12
 
-    # Generate actions using selected model, map name and seed
-    # actions, rewards = load_actions(directory+filename, map_name, seed)
-    # write_actions_to_file(actions, './map1_seed12.txt')
+    actions_dir = "results\\map1\\"
+    actions_file_path = actions_dir + "map1_seed12.txt"
 
-    display_actions("map1", seed, './map1_seed12.txt')
+    ### Generate actions using model and dump actions to txt file
+    # actions, rewards = load_actions(model_file_path, map_name, seed)
+    # write_actions_to_file(actions, actions_dir, actions_file_path)
+
+    ### Load actions from txt file and display using simulator
+    display_actions_from_file(map_name, seed, actions_file_path)

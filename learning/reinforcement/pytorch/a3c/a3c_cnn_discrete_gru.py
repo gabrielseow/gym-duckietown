@@ -198,7 +198,7 @@ class Worker(mp.Process):
                 # print training info every minute
                 if self.identifier == 0 and time.time() - last_disp_time > 60:
                     elapsed = time.strftime("%H:%M:%S", time.gmtime(time.time() - start_time))
-                    print('time {}, episodes {:.0f}, frames {:.1f}M, mean epr {:.2f}, run loss {:.2f}'
+                    print('time {}, episodes {:.0f}, frames {:.3f}M, mean epr {:.2f}, run loss {:.2f}'
                           .format(elapsed, self.info['episodes'].item(), num_frames / 1e6,
                                   self.info['run_epr'].item(), self.info['run_loss'].item()))
                     last_disp_time = time.time()

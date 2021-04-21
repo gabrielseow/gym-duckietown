@@ -114,7 +114,7 @@ def _train(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", default=1, type=int)  # Sets Gym, PyTorch and Numpy seeds
-    parser.add_argument("--max_steps", default=30_000_000, type=int)  # Max time steps to run environment for
+    parser.add_argument("--max_steps", default=10_000_000, type=int)  # Max time steps to run environment for
     parser.add_argument("--steps_until_sync", default=20, type=int)  # Steps until nets are synced
     parser.add_argument("--learning_rate", default=1e-4, type=float)  # Learning rate for the net
     parser.add_argument("--gamma", default=0.99, type=float)  # Discount factor
@@ -128,4 +128,26 @@ if __name__ == '__main__':
     parser.add_argument('--start_date', type=str, default=datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S_"))
     parser.add_argument('--env', default=None)
     parser.add_argument('--save_on_interrupt', default=True)
-    _train(parser.parse_args())
+
+    args = parser.parse_args()
+
+    # Pretrained models for various models
+    map1_model_dir = "./models/map1/"
+    map1_model = "2021-04-19_13-53-59_a3c-disc-duckie_a9-final.pth"
+
+    map2_model_dir = "./models/map2/"
+    map2_model = "2021-04-20_17-23-54_a3c-disc-duckie_a9-final.pth"
+
+    # Select suitable pretrained model for transfer learning or further training
+    model_dir = map1_model_dir
+    model_file = map1_model
+    checkpoint = torch.load(model_dir + model_file)
+    checkpoint_steps = checkpoint['info']['frames'][0]
+    additional_steps = 10_000_000
+
+    # Manually change args to reflect choices
+    args.max_steps = checkpoint_steps + additional_steps
+    args.model_dir = model_dir
+    args.model_file = model_file
+
+    _train(args)
