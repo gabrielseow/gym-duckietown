@@ -89,29 +89,28 @@ class DiscreteWrapper_9_custom(gym.ActionWrapper):
     def action(self, action):
         # Left
         if action == 0:
-            vels = [0.80, +1.0]
+            vels = [0.576, +1.0]
         elif action == 1:
-            vels = [0.80, +.75]
+            vels = [0.612, +.75]
         elif action == 2:
-            vels = [0.80, +.5]
+            vels = [0.648, +.5]
         elif action == 3:
-            vels = [0.80, +.25]
+            vels = [0.684, +.25]
         # Right
         elif action == 4:
-            vels = [0.80, -1.0]
+            vels = [0.576, -1.0]
         elif action == 5:
-            vels = [0.80, -.75]
+            vels = [0.612, -.75]
         elif action == 6:
-            vels = [0.80, -.5]
+            vels = [0.648, -.5]
         elif action == 7:
-            vels = [0.80, -.25]
+            vels = [0.684, -.25]
         # Forward
         elif action == 8:
-            vels = [1.0, +1.0]
+            vels = [0.72, 0.0]
         else:
             assert False, "unknown action"
         return np.array(vels)
-
 
 class ResizeWrapper(gym.ObservationWrapper):
     def __init__(self, env=None, shape=(120, 160, 3)):

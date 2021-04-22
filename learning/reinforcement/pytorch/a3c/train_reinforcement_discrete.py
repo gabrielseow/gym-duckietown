@@ -17,7 +17,7 @@ from learning.reinforcement.pytorch.a3c import CustomOptimizer
 from learning.reinforcement.pytorch.utils import seed
 from learning.utils.env import launch_env
 from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9
+    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9, DiscreteWrapper_9_custom
 
 # PyTorch
 import torch
@@ -141,12 +141,12 @@ if __name__ == '__main__':
     map2_model = "2021-04-20_17-23-54_a3c-disc-duckie_a9-final.pth"
 
     # Select suitable pretrained model for transfer learning or further training
-    model_dir = map1_model_dir
-    model_file = map1_model
+    model_dir = map2_model_dir
+    model_file = map2_model
     model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
-    map_name = "map3"
-    save_dir = "./models/map3/"
-    max_steps = model_steps + 10_000_000
+    map_name = "map4"
+    save_dir = "./models/map4/"
+    max_steps = model_steps + 20_000_000
 
     # Manually change args to reflect choices
     args.max_steps = max_steps
@@ -154,5 +154,8 @@ if __name__ == '__main__':
     args.model_file = model_file
     args.map_name = map_name
     args.save_dir = save_dir
+
+    # Reduce workers for training on laptop
+    args.num_workers = 4
 
     _train(args)

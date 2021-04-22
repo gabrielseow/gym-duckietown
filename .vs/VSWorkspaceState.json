@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\learning",
+    "\\learning\\reinforcement",
+    "\\learning\\reinforcement\\pytorch",
+    "\\learning\\reinforcement\\pytorch\\a3c",
+    "\\learning\\utils",
+    "\\models",
+    "\\models\\map1",
+    "\\models\\map1_faster"
+  ],
+  "SelectedNode": "\\models\\map1_faster",
+  "PreviewInSolutionExplorer": false
+}
