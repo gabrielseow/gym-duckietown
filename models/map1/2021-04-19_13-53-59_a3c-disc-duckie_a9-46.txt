@@ -1,2 +1,0 @@
-Seed: 3
-Model:2021-04-19_13-53-59_a3c-disc-duckie_a9-46000.0.pth Rewards:-1360.07 Average Speed:0.3703
