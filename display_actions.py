@@ -59,7 +59,7 @@ if __name__ == '__main__':
     actions_file_path = actions_dir + "map1_seed12.txt"
 
     ### Generate actions using model and dump actions to txt file
-    # actions, rewards = load_actions(model_file_path, map_name, seed)
+    # actions, rewards = load_actions(model_file_path, map_name, seed, save_actions=True)
     # write_actions_to_file(actions, actions_dir, actions_file_path)
 
     ### Load actions from txt file and display using simulator

@@ -23,7 +23,7 @@ def make_environment(map_name, seed):
     ) 
     return env
 
-def load_actions(model_path, map_name, seed):
+def load_actions(model_path, map_name, seed, save_actions):
     env = make_environment(map_name, seed)
     # env = ResizeWrapper(env)
     # env = NormalizeWrapper(env)
@@ -84,7 +84,8 @@ def load_actions(model_path, map_name, seed):
             # Track all actions taken
             rewards += reward
             action_count += 1
-            actions.append(action)
+            if save_actions:
+                actions.append(action)
             vector = env.action(action)
             total_speed += vector[0]
 
@@ -121,8 +122,8 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map3\\"
-    map_name = "map3"
+    directory = "models\\map4\\"
+    map_name = "map4"
         
     # Prefix for individual models to evaluate
     model_1 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-62"
@@ -140,12 +141,12 @@ if __name__ == '__main__':
     only_print_selected = False
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-21_15-42-23_a3c-disc-duckie_a9"
+    model_prefix = "2021-04-22_01-27-35_a3c-disc-duckie_a9"
 
     # Create results file
     results_file = open(directory + model_prefix + ".txt", mode="a")
 
-    for seed in seeds["map3"]:
+    for seed in seeds[map_name]:
         seed_results = []
 
         for file in os.listdir(directory):
@@ -153,11 +154,11 @@ if __name__ == '__main__':
 
             # If evaluating only selected models
             if only_print_selected and any(filename.startswith(model) for model in selected_models):
-                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed)
+                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed, save_actions=False)
                 seed_results.append(f"Model:{filename} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
             # If evaluating all models
             elif filename.startswith(model_prefix) and filename.endswith(".pth"): 
-                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed)
+                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed, save_actions=False)
                 seed_results.append(f"Model:{filename} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
 
 
@@ -168,5 +169,5 @@ if __name__ == '__main__':
         for result in seed_results:
             results_file.write(result+'\n')
             print(result)
-
-     results_file.close()
+    
+    results_file.close()
