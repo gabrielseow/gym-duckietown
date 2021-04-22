@@ -14,7 +14,7 @@ def launch_env(map_name, id=None):
             domain_rand=0,
             camera_width=640,
             camera_height=480,
-            accept_start_angle_deg=4,  # start close to straight
+            # accept_start_angle_deg=4,  # start close to straight
             full_transparency=True,
             distortion=True,
         )

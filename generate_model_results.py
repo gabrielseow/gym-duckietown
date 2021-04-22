@@ -19,6 +19,8 @@ def make_environment(map_name, seed):
         domain_rand = False,
         draw_bbox = False,
         max_steps = MAX_STEPS,
+        # Experiment
+        #accept_start_angle_deg=4,  # start close to straight
         seed = seed
     ) 
     return env
@@ -169,5 +171,4 @@ if __name__ == '__main__':
         for result in seed_results:
             results_file.write(result+'\n')
             print(result)
-    
     results_file.close()
