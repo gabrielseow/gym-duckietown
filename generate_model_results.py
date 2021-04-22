@@ -19,6 +19,8 @@ def make_environment(map_name, seed):
         domain_rand = False,
         draw_bbox = False,
         max_steps = MAX_STEPS,
+        # Experiment
+        #accept_start_angle_deg=4,  # start close to straight
         seed = seed
     ) 
     return env
@@ -121,8 +123,8 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map3\\"
-    map_name = "map3"
+    directory = "models\\map1\\"
+    map_name = "map1"
         
     # Prefix for individual models to evaluate
     model_1 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-62"
@@ -140,12 +142,12 @@ if __name__ == '__main__':
     only_print_selected = False
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-21_15-42-23_a3c-disc-duckie_a9"
+    model_prefix = "2021-04-19_13-53-59_a3c-disc-duckie_a9"
 
     # Create results file
     results_file = open(directory + model_prefix + ".txt", mode="a")
 
-    for seed in seeds["map3"]:
+    for seed in seeds[map_name]:
         seed_results = []
 
         for file in os.listdir(directory):
@@ -169,4 +171,4 @@ if __name__ == '__main__':
             results_file.write(result+'\n')
             print(result)
 
-     results_file.close()
+    results_file.close()
