@@ -32,24 +32,24 @@ parser.add_argument('--frame-skip', default=1, type=int, help='number of frames 
 parser.add_argument('--seed', default=1, type=int, help='seed')
 args = parser.parse_args()
 
-# Experiment to find out the problem with map1-seed3
-'''
+# Maun
 env = DuckietownEnv(
-    map_name = 'map1',
+    map_name = 'map2',
+    seed = 1,
     domain_rand = False,
     draw_bbox = False,
-    max_steps = 1500,
-    seed = 3
+    max_steps=500001,  # we don't want the gym to reset itself
+    camera_width=640,
+    camera_height=480
 )
-'''
 
-env = launch_env()
+#env = launch_env()
 #env = ResizeWrapper(env)
 #env = NormalizeWrapper(env)
 env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
 #env = ActionWrapper(env)
 env = DtRewardWrapper2(env)
-env = DiscreteWrapper(env)
+#env = DiscreteWrapper(env)
 
 """
 if args.env_name and args.env_name.find('Duckietown') != -1:
@@ -107,6 +107,7 @@ def update(dt):
     movement/stepping and redrawing
     """
 
+    '''
     action = 2
 
     if key_handler[key.UP]:
@@ -115,8 +116,10 @@ def update(dt):
         action = 0
     if key_handler[key.RIGHT]:
         action = 1
+    '''
 
-    """
+    action = np.array([0, 0])
+
     if key_handler[key.UP]:
         action = np.array([0.44, 0.0])
     if key_handler[key.DOWN]:
@@ -127,7 +130,6 @@ def update(dt):
         action = np.array([0.35, -1])
     if key_handler[key.SPACE]:
         action = np.array([0, 0])
-    """
 
     # Speed boost
     if key_handler[key.LSHIFT]:

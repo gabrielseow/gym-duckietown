@@ -140,13 +140,16 @@ if __name__ == '__main__':
     map2_model_dir = "./models/map2/"
     map2_model = "2021-04-20_17-23-54_a3c-disc-duckie_a9-final.pth"
 
+    map3_model_dir = "./models/map3/"
+    map3_model = "2021-04-21_15-42-23_a3c-disc-duckie_a9-final.pth"
+
     # Select suitable pretrained model for transfer learning or further training
-    model_dir = map1_model_dir
-    model_file = map1_model
+    model_dir = map3_model_dir
+    model_file = map3_model
     model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
-    map_name = "map3"
-    save_dir = "./models/map3/"
-    max_steps = model_steps + 10_000_000
+    map_name = "map5"
+    save_dir = "./models/map5/"
+    max_steps = model_steps + 20_000_000
 
     # Manually change args to reflect choices
     args.max_steps = max_steps

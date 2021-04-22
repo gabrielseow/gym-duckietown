@@ -52,7 +52,7 @@ def load_actions(model_path, map_name, seed):
     done = True
 
     steps_until_new_action = 0
-    step_evaluation_frequency = 1
+    step_evaluation_frequency = 3
     action = 0
     action_count = 0
     actions = []
@@ -88,7 +88,8 @@ def load_actions(model_path, map_name, seed):
             vector = env.action(action)
             total_speed += vector[0]
 
-            # env.render()
+            #print(f"Reward: {reward:.2f}")
+            #env.render()
 
             if done:
                 state = torch.tensor(preprocess_state(env.reset()))
@@ -120,18 +121,52 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map1\\"
-    map_name = "map1"
+    directory = "models\\map3\\"
+    map_name = "map3"
+        
+    # Prefix for individual models to evaluate
+    model_1 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-62"
+    model_2 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-63"
+    model_3 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-73"
+    model_4 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-74"
+    model_5 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-78"
+    selected_models = [
+        model_1,
+        model_2,
+        model_3,
+        model_4,
+        model_5
+    ]
+    only_print_selected = False
 
-    for seed in seeds["map1"]:
+    # Prefix for general models to evaluate
+    model_prefix = "2021-04-21_15-42-23_a3c-disc-duckie_a9"
+
+    # Create results file
+    results_file = open(directory + model_prefix + ".txt", mode="a")
+
+    for seed in seeds["map3"]:
         seed_results = []
+
         for file in os.listdir(directory):
             filename = os.fsdecode(file)
 
-            if filename.startswith("2021-04-19_13-53-59_a3c-disc-duckie_a9-") and filename.endswith(".pth"): 
+            # If evaluating only selected models
+            if only_print_selected and any(filename.startswith(model) for model in selected_models):
+                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed)
+                seed_results.append(f"Model:{filename} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
+            # If evaluating all models
+            elif filename.startswith(model_prefix) and filename.endswith(".pth"): 
                 actions, rewards, average_speed = load_actions(directory+filename, map_name, seed)
                 seed_results.append(f"Model:{filename} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
 
-        print(f"Seed: {seed}")
+
+        # Print evaluation results and store in results file
+        header = f"Seed: {seed}"
+        results_file.write(header+'\n')
+        print(header)
         for result in seed_results:
+            results_file.write(result+'\n')
             print(result)
+
+     results_file.close()
