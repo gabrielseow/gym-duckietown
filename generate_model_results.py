@@ -89,7 +89,7 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
 
             # Search for ideal orientation
             with torch.no_grad():
-                for i in range(FULL_TURN-2):
+                for i in range(FULL_TURN):
                     if done:
                         hx = torch.zeros(1, 256)
                     else:
@@ -183,7 +183,7 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
                 if save_actions:
                     actions.append(action)
 
-                #env.render()
+                env.render()
 
                 if done:
                     state = torch.tensor(preprocess_state(env.reset()))
