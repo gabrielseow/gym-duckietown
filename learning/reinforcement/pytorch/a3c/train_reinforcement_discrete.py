@@ -17,7 +17,7 @@ from learning.reinforcement.pytorch.a3c import CustomOptimizer
 from learning.reinforcement.pytorch.utils import seed
 from learning.utils.env import launch_env
 from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9, DiscreteWrapper_9_custom
+    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9, DiscreteWrapper_9_custom, DiscreteWrapper_9_map5
 
 # PyTorch
 import torch
@@ -38,7 +38,7 @@ def _train(args):
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
     # env = ActionWrapper(env)
     env = DtRewardWrapper2(env)
-    env = DiscreteWrapper_9(env)
+    env = DiscreteWrapper_9_map5(env)
 
     # Set seeds
     seed(args.seed)
@@ -147,14 +147,15 @@ if __name__ == '__main__':
     map4_model = "2021-04-22_01-27-35_a3c-disc-duckie_a9-final.pth"
 
     map5_model_dir = "./models/map5/"
-    map5_model = "2021-04-22_01-30-26_a3c-disc-duckie_a9-final.pth"
+    map5_model = "2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth"
 
     # Select suitable pretrained model for transfer learning or further training
     model_dir = map5_model_dir
     model_file = map5_model
     model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
-    map_name = "map4"
-    save_dir = "./models/map4/"
+
+    map_name = "map5"
+    save_dir = "./models/map5_sharper_turn/"
     max_steps = model_steps + 20_000_000
 
     # Manually change args to reflect choices

@@ -1,0 +1,33 @@
+Model: 2021-04-23_16-30-39_a3c-disc-duckie_a9-153000.0.pth Re-orientate: True
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:8 Rewards:1446.39 Average Speed:0.3746 Direction:LEFT Turns:65
+Seed:9 Rewards:1432.77 Average Speed:0.3743 Direction:LEFT Turns:13
+Seed:10 Crashed
+Seed:16 Rewards:1407.41 Average Speed:0.3731 Direction:LEFT Turns:48
+Seed:23 Crashed
+Model: 2021-04-23_16-30-39_a3c-disc-duckie_a9-154000.0.pth Re-orientate: True
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:8 Rewards:1446.20 Average Speed:0.3606 Direction:LEFT Turns:62
+Seed:9 Rewards:1427.90 Average Speed:0.3611 Direction:LEFT Turns:16
+Seed:10 Crashed
+Seed:16 Rewards:1442.80 Average Speed:0.3616 Direction:LEFT Turns:43
+Seed:23 Crashed
+Model: 2021-04-23_16-30-39_a3c-disc-duckie_a9-155000.0.pth Re-orientate: True
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:8 Rewards:1481.68 Average Speed:0.3677 Direction:LEFT Turns:65
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Rewards:1441.66 Average Speed:0.3677 Direction:LEFT Turns:43
+Seed:23 Crashed
