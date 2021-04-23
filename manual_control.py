@@ -32,9 +32,18 @@ parser.add_argument('--frame-skip', default=1, type=int, help='number of frames 
 parser.add_argument('--seed', default=1, type=int, help='seed')
 args = parser.parse_args()
 
+# For reference
+seeds = {
+"map1": [2, 3, 5, 9, 12],
+"map2": [1, 2, 3, 5, 7, 8, 13, 16],
+"map3": [1, 2, 4, 8, 9, 10, 15, 21],
+"map4": [1, 2, 3, 4, 5, 7, 9, 10, 16, 18],
+"map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
+}
+
 # Maun
 env = DuckietownEnv(
-    map_name = 'map2',
+    map_name = 'map5',
     seed = 1,
     domain_rand = False,
     draw_bbox = False,
@@ -125,9 +134,9 @@ def update(dt):
     if key_handler[key.DOWN]:
         action = np.array([-0.44, 0])
     if key_handler[key.LEFT]:
-        action = np.array([0.35, +1])
+        action = np.array([0.15, +1])
     if key_handler[key.RIGHT]:
-        action = np.array([0.35, -1])
+        action = np.array([0.15, -1])
     if key_handler[key.SPACE]:
         action = np.array([0, 0])
 

@@ -62,6 +62,83 @@ class DiscreteWrapper_9(gym.ActionWrapper):
             assert False, "unknown action"
         return np.array(vels)
 
+class DiscreteWrapper_9_map5(gym.ActionWrapper):
+    """
+    Discrete actions (left, right, forward) instead of continuous control.
+    9 Actions (4 angles left, 4 angles right, straight forward)
+    """
+
+    def __init__(self, env):
+        gym.ActionWrapper.__init__(self, env)
+        self.action_space = spaces.Discrete(9)
+
+    def action(self, action):
+        # Left
+        if action == 0:
+            vels = [0.15, +1.0]
+        elif action == 1:
+            vels = [0.225, +.75]
+        elif action == 2:
+            vels = [0.30, +.5]
+        elif action == 3:
+            vels = [0.375, +.25]
+        # Right
+        elif action == 4:
+            vels = [0.15, -1.0]
+        elif action == 5:
+            vels = [0.225, -.75]
+        elif action == 6:
+            vels = [0.30, -.5]
+        elif action == 7:
+            vels = [0.375, -.25]
+        # Forward
+        elif action == 8:
+            vels = [0.44, 0.0]
+        else:
+            assert False, "unknown action"
+        return np.array(vels)
+
+class DiscreteWrapper_9_testing(gym.ActionWrapper):
+    """
+    Discrete actions (left, right, forward) instead of continuous control.
+    9 Actions (4 angles left, 4 angles right, straight forward)
+    """
+
+    def __init__(self, env):
+        gym.ActionWrapper.__init__(self, env)
+        self.action_space = spaces.Discrete(9)
+
+    def action(self, action):
+        # Left
+        if action == 0:
+            vels = [0.35, +1.0]
+        elif action == 1:
+            vels = [0.3725, +.75]
+        elif action == 2:
+            vels = [0.395, +.5]
+        elif action == 3:
+            vels = [0.4175, +.25]
+        # Right
+        elif action == 4:
+            vels = [0.35, -1.0]
+        elif action == 5:
+            vels = [0.3725, -.75]
+        elif action == 6:
+            vels = [0.395, -.5]
+        elif action == 7:
+            vels = [0.4175, -.25]
+        # Forward
+        elif action == 8:
+            vels = [0.44, 0.0]
+        # Turn on the spot to search for ideal starting orientation
+        elif action == 9:
+            vels = [0.0, +1.0]
+        elif action == 10:
+            vels = [0.0, -1.0]
+        else:
+            assert False, "unknown action"
+        return np.array(vels)
+
 class DiscreteWrapper_9_script(gym.ActionWrapper):
     """
     Discrete actions (left, right, forward) instead of continuous control.

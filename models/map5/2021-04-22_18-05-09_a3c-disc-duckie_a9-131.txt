@@ -1,0 +1,38 @@
+Seed: 1
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:0.53 Average Speed:0.3655
+Seed: 2
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-10353.34 Average Speed:0.3567
+Seed: 4
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-845.13 Average Speed:0.3661
+Seed: 5
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-736.69 Average Speed:0.3673
+Seed: 7
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-2114.08 Average Speed:0.3612
+Seed: 8
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-816.17 Average Speed:0.3631
+Seed: 9
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:95.94 Average Speed:0.3605
+Seed: 10
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-10974.34 Average Speed:0.3505
+Seed: 16
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-11603.97 Average Speed:0.3586
+Seed: 23
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-10096.76 Average Speed:0.3617
+Seed: 1
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:0.53 Average Speed:0.3655
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Rewards:-1030.72 Average Speed:0.3666
+Seed: 2
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-10353.34 Average Speed:0.3567
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Rewards:-9070.69 Average Speed:0.3614
+Seed: 4
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-845.13 Average Speed:0.3661
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Rewards:-734.58 Average Speed:0.3613
+Seed: 5
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-736.69 Average Speed:0.3673
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Rewards:-709.39 Average Speed:0.3604
+Seed: 7
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-2114.08 Average Speed:0.3612
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Rewards:-12549.07 Average Speed:0.3535
+Seed: 8
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-131000.0.pth Rewards:-816.17 Average Speed:0.3631
+Model:2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Rewards:-5352.09 Average Speed:0.3541
