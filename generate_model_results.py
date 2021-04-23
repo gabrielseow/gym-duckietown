@@ -203,7 +203,7 @@ if __name__ == '__main__':
     only_print_selected = False
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-19_13-53-59_a3c-disc-duckie_a9"
+    model_prefix = "2021-04-22_18-08-07_a3c-disc-duckie_a9"
 
     # Create results file
     results_file = open(directory + model_prefix + ".txt", mode="a")

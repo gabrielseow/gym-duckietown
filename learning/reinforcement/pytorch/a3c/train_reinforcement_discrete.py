@@ -143,6 +143,9 @@ if __name__ == '__main__':
     map3_model_dir = "./models/map3/"
     map3_model = "2021-04-21_15-42-23_a3c-disc-duckie_a9-final.pth"
 
+    map4_model_dir = "./models/map4/"
+    map4_model = "2021-04-22_01-27-35_a3c-disc-duckie_a9-final.pth"
+
     map5_model_dir = "./models/map5/"
     map5_model = "2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth"
 
@@ -150,6 +153,7 @@ if __name__ == '__main__':
     model_dir = map5_model_dir
     model_file = map5_model
     model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
+
     map_name = "map5"
     save_dir = "./models/map5_sharper_turn/"
     max_steps = model_steps + 20_000_000
