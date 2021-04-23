@@ -124,8 +124,8 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map4\\"
-    map_name = "map4"
+    directory = "models\\map1\\"
+    map_name = "map1"
         
     # Prefix for individual models to evaluate
     model_1 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-62"
@@ -143,12 +143,13 @@ if __name__ == '__main__':
     only_print_selected = False
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-22_01-27-35_a3c-disc-duckie_a9"
+    model_prefix = "2021-04-22_18-08-07_a3c-disc-duckie_a9"
 
     # Create results file
     results_file = open(directory + model_prefix + ".txt", mode="a")
 
-    for seed in seeds[map_name]:
+    # for seed in seeds[map_name]:
+    for seed in [2,18]:
         seed_results = []
 
         for file in os.listdir(directory):
