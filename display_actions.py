@@ -50,13 +50,13 @@ def write_actions_to_file(actions, directory, file_path):
 
 if __name__ == '__main__':
     model_dir = "models\\map5\\"
-    model_file_path = model_dir + "2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth"
+    model_file_path = model_dir + "2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth"
 
     map_name = 'map5'
-    seed = 1
+    seed = 5
 
     actions_dir = "results\\map5\\"
-    actions_file_path = actions_dir + "map5_seed1.txt"
+    actions_file_path = actions_dir + "map5_seed5.txt"
 
     ### Generate actions using model and dump actions to txt file
 
