@@ -25,42 +25,7 @@ def make_environment(map_name, seed):
     ) 
     return env
 
-def load_actions(model_path, map_name, seed, save_actions):
-    env = make_environment(map_name, seed)
-    # env = ResizeWrapper(env)
-    # env = NormalizeWrapper(env)
-    env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
-    # env = ActionWrapper(env)
-    # env = DtRewardWrapper2(env)
-    env = DiscreteWrapper_9_testing(env)
-
-    shape_obs_space = env.observation_space.shape  # (3, 120, 160)
-    shape_action_space = env.action_space.n  # (2,)
-
-    # Initialize policy
-
-    # Load model
-    cwd = os.getcwd()
-    path = os.path.join(cwd, model_path)
-    print('Loading model from:', path)
-
-    checkpoint = torch.load(path)
-    global_net = a3c.Net(channels=1, num_actions=shape_action_space)
-    global_net.load_state_dict(checkpoint['model_state_dict'])
-    #global_net.load_state_dict(checkpoint)
-    global_net.eval()
-
-    state = torch.tensor(preprocess_state(env.reset()))
-    done = True
-
-    steps_until_new_action = 0
-    step_evaluation_frequency = 3
-    action = 0
-    action_count = 0
-    actions = []
-    rewards = 0
-    total_speed = 0
-
+def select_best_orientation(env, render=False):
     FULL_TURN = 135
     TURN_LEFT = 9
     TURN_RIGHT = 10
@@ -82,15 +47,9 @@ def load_actions(model_path, map_name, seed, save_actions):
                 best_val = value
                 turns = i
 
-            #action_log_probs = F.log_softmax(logit, dim=-1)
-            #print(f"Val: {value} Logit: {logit} HX: {hx}")
-            #print(f"Log_prob: {action_log_probs}")
-
             # Perform action
             state, _, done, _ = env.step(TURN_LEFT)
             state = torch.tensor(preprocess_state(state))
-
-            # env.render()
 
             if done:
                 state = torch.tensor(preprocess_state(env.reset()))
@@ -112,48 +71,98 @@ def load_actions(model_path, map_name, seed, save_actions):
             state, _, done, _ = env.step(direction)
             state = torch.tensor(preprocess_state(state))
 
-            #env.render()
+            if render:
+                env.render()
 
             if done:
                 state = torch.tensor(preprocess_state(env.reset()))
+    return direction, turns
 
-    while action_count < MAX_STEPS:
-        with torch.no_grad():
-            if done:
-                hx = torch.zeros(1, 256)
-            else:
-                hx = hx.detach()
+def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions = False):
 
-            steps_until_new_action -= 1
+    shape_obs_space = env.observation_space.shape  # (3, 120, 160)
+    shape_action_space = env.action_space.n  # (2,)
 
-            # Inference
-            value, logit, hx = global_net.forward((state.view(-1, 1, 80, 80), hx))
-            action_log_probs = F.log_softmax(logit, dim=-1)
+    # Load model
+    cwd = os.getcwd()
+    path = os.path.join(cwd, model_path)
+    print('Loading model from:', path)
 
-            if steps_until_new_action <= 0:
-                # Take action with highest probability
-                action = action_log_probs.max(1, keepdim=True)[1].numpy()
-                steps_until_new_action = step_evaluation_frequency
+    checkpoint = torch.load(path)
+    global_net = a3c.Net(channels=1, num_actions=shape_action_space)
+    global_net.load_state_dict(checkpoint['model_state_dict'])
+    global_net.eval()
 
-            # Perform action
-            state, reward, done, _ = env.step(action)
-            state = torch.tensor(preprocess_state(state))
+    results = []
 
-            # Track all actions taken
-            rewards += reward
-            action_count += 1
-            if save_actions:
-                actions.append(action)
-            vector = env.action(action)
-            total_speed += vector[0]
+    for seed in seeds:
+        env = make_environment(map_name, seed)
 
-            #print(f"Reward: {reward:.2f}")
-            #env.render()
+        env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
+        env = DiscreteWrapper_9_testing(env)
 
-            if done:
-                state = torch.tensor(preprocess_state(env.reset()))
+        if re_orientate:
+            direction, turns = select_best_orientation(env)
 
-    return actions, rewards, (total_speed/MAX_STEPS)
+        state = torch.tensor(preprocess_state(env.reset()))
+        done = True
+
+        steps_until_new_action = 0
+        step_evaluation_frequency = 1
+
+        action = 0
+        action_count = 0
+        actions = []
+        rewards = 0
+        total_speed = 0
+        crashed = False
+
+        while action_count < MAX_STEPS:
+            with torch.no_grad():
+                if done:
+                    hx = torch.zeros(1, 256)
+                else:
+                    hx = hx.detach()
+
+                steps_until_new_action -= 1
+
+                # Inference
+                value, logit, hx = global_net.forward((state.view(-1, 1, 80, 80), hx))
+                action_log_probs = F.log_softmax(logit, dim=-1)
+
+                if steps_until_new_action <= 0:
+                    # Take action with highest probability
+                    action = action_log_probs.max(1, keepdim=True)[1].numpy()
+                    steps_until_new_action = step_evaluation_frequency
+
+                # Perform action
+                state, reward, done, _ = env.step(action)
+                state = torch.tensor(preprocess_state(state))
+
+                # Abort evaluation early if robot crashes into wall
+                if reward == -1000:
+                    crashed = True
+                    break
+
+                # Track all actions taken
+                rewards += reward
+                action_count += 1
+                if save_actions:
+                    actions.append(action)
+                vector = env.action(action)
+                total_speed += vector[0]
+
+                #env.render()
+
+                if done:
+                    state = torch.tensor(preprocess_state(env.reset()))
+        if crashed: 
+            results.append([None])
+        elif re_orientate:
+            results.append([actions, rewards, (total_speed/MAX_STEPS), direction, turns])
+        else:
+            results.append([actions, rewards, (total_speed/MAX_STEPS)])
+    return results
 
 MAX_STEPS = 1500
 
@@ -172,7 +181,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     '''
 
-    seeds = {
+    map_seeds = {
         "map1": [2, 3, 5, 9, 12],
         "map2": [1, 2, 3, 5, 7, 8, 13, 16],
         "map3": [1, 2, 4, 8, 9, 10, 15, 21],
@@ -182,6 +191,7 @@ if __name__ == '__main__':
 
     directory = "models\\map1\\"
     map_name = "map1"
+    re_orientate = True
         
     # Prefix for individual models to evaluate
     model_1 = "2021-04-22_18-05-09_a3c-disc-duckie_a9-145"
@@ -198,34 +208,38 @@ if __name__ == '__main__':
     # Create results file
     results_file = open(directory + model_prefix + ".txt", mode="a")
 
-    # Tested
-    tested = []
+    seeds = map_seeds[map_name]
 
-    # for seed in seeds[map_name]:
-    for seed in [3]:
-        if seed in tested:
-            continue
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        seed_results_string = []
 
-        seed_results = []
-
-        for file in os.listdir(directory):
-            filename = os.fsdecode(file)
-
-            # If evaluating only selected models
-            if only_print_selected and any(filename.startswith(model) for model in selected_models):
-                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed, save_actions=False)
-                seed_results.append(f"Model:{filename} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
-            # If evaluating all models
-            elif filename.startswith(model_prefix) and filename.endswith(".pth"): 
-                actions, rewards, average_speed = load_actions(directory+filename, map_name, seed, save_actions=False)
-                seed_results.append(f"Model:{filename} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
-
+        # If evaluating only selected models
+        if only_print_selected and any(filename.startswith(model) for model in selected_models):
+            seed_results = load_actions(directory+filename, map_name, seeds, re_orientate = re_orientate)
+        # If evaluating all models
+        elif filename.startswith(model_prefix) and filename.endswith(".pth"): 
+            seed_results = load_actions(directory+filename, map_name, seeds, re_orientate = re_orientate)
+        else:
+            break
+        
+        header = f"Model: {filename}"
+        seed_results_string.append(header)
+        for i in range(len(seed_results)):
+            seed = seeds[i]
+            result = seed_results[i]
+            if result is None:
+                seed_results_string.append(f"Seed:{seed} Crashed")
+            elif re_orientate:
+                actions, rewards, average_speed, direction, turns = result
+                direction_string = "LEFT" if direction == 9 else "RIGHT"
+                seed_results_string.append(f"Seed:{seed} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f} Direction:{direction_string} Turns:{turns}")
+            else:
+                actions, rewards, average_speed = result
+                seed_results_string.append(f"Seed:{seed} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
 
         # Print evaluation results and store in results file
-        header = f"Seed: {seed}"
-        results_file.write(header+'\n')
-        print(header)
         for result in seed_results:
-            results_file.write(result+'\n')
             print(result)
+            results_file.write(result+'\n')
     results_file.close()
