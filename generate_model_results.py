@@ -6,7 +6,7 @@ import numpy as np
 from gym_duckietown.envs import DuckietownEnv
 from learning.reinforcement.pytorch.a3c import a3c_cnn_discrete_gru as a3c
 from learning.utils.wrappers import NormalizeWrapper, ImgWrapper, \
-    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9, DiscreteWrapper_9_custom
+    DtRewardWrapper2, ActionWrapper, ResizeWrapper, DiscreteWrapper_9, DiscreteWrapper_9_testing
 
 
 def preprocess_state(obs):
@@ -19,66 +19,19 @@ def make_environment(map_name, seed):
         domain_rand = False,
         draw_bbox = False,
         max_steps = MAX_STEPS,
-        # Experiment
-        #accept_start_angle_deg=4,  # start close to straight
         seed = seed
     ) 
     return env
 
-def select_best_orientation(env, render=False):
+def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions = False):
+
     FULL_TURN = 135
     TURN_LEFT = 9
     TURN_RIGHT = 10
 
-    best_val = 0
-    turns = 0
-
-    # Search for ideal orientation
-    with torch.no_grad():
-        for i in range(FULL_TURN):
-            if done:
-                hx = torch.zeros(1, 256)
-            else:
-                hx = hx.detach()
-
-            # Inference
-            value, _, _ = global_net.forward((state.view(-1, 1, 80, 80), hx))
-            if value > best_val:
-                best_val = value
-                turns = i
-
-            # Perform action
-            state, _, done, _ = env.step(TURN_LEFT)
-            state = torch.tensor(preprocess_state(state))
-
-            if done:
-                state = torch.tensor(preprocess_state(env.reset()))
-
-    if turns > FULL_TURN // 2:
-        direction = TURN_RIGHT
-        turns = FULL_TURN - turns
-    else:
-        direction = TURN_LEFT
-
-    with torch.no_grad():
-        for i in range(turns):
-            if done:
-                hx = torch.zeros(1, 256)
-            else:
-                hx = hx.detach()
-
-            # Perform action
-            state, _, done, _ = env.step(direction)
-            state = torch.tensor(preprocess_state(state))
-
-            if render:
-                env.render()
-
-            if done:
-                state = torch.tensor(preprocess_state(env.reset()))
-    return direction, turns
-
-def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions = False):
+    env = make_environment(map_name, 1)
+    env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
+    env = DiscreteWrapper_9(env)
 
     shape_obs_space = env.observation_space.shape  # (3, 120, 160)
     shape_action_space = env.action_space.n  # (2,)
@@ -101,14 +54,93 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
         env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
         env = DiscreteWrapper_9_testing(env)
 
-        if re_orientate:
-            direction, turns = select_best_orientation(env)
-
         state = torch.tensor(preprocess_state(env.reset()))
-        done = True
+
+        if re_orientate:
+            best_val = 0
+            turns = 0
+
+            v1 = 0
+            v2 = 0
+
+            done = True
+
+            # Initialize values for adjacent views
+            with torch.no_grad():
+                for i in range(2):
+                    if done:
+                        hx = torch.zeros(1, 256)
+                    else:
+                        hx = hx.detach()
+
+                    # Inference
+                    value, _, _ = global_net.forward((state.view(-1, 1, 80, 80), hx))
+                    if i == 0:
+                        v1 = value
+                    elif i == 1:
+                        v2 = value
+
+                    # Perform action
+                    state, _, done, _ = env.step(TURN_LEFT)
+                    state = torch.tensor(preprocess_state(state))
+
+                    if done:
+                        state = torch.tensor(preprocess_state(env.reset()))
+
+            # Search for ideal orientation
+            with torch.no_grad():
+                for i in range(FULL_TURN-2):
+                    if done:
+                        hx = torch.zeros(1, 256)
+                    else:
+                        hx = hx.detach()
+
+                    # Inference
+                    value, _, _ = global_net.forward((state.view(-1, 1, 80, 80), hx))
+                    adjusted_value = 0.5*(value+v1) + v2
+                    if adjusted_value > best_val:
+                        best_val = adjusted_value
+                        turns = i+1
+
+                    v1 = v2
+                    v2 = value
+
+                    # Perform action
+                    state, _, done, _ = env.step(TURN_LEFT)
+                    state = torch.tensor(preprocess_state(state))
+
+                    if done:
+                        state = torch.tensor(preprocess_state(env.reset()))
+
+            if turns > FULL_TURN // 2:
+                direction = TURN_RIGHT
+                turns = FULL_TURN - turns
+            else:
+                direction = TURN_LEFT
+
+            done = True
+
+            with torch.no_grad():
+                for i in range(turns):
+                    if done:
+                        hx = torch.zeros(1, 256)
+                    else:
+                        hx = hx.detach()
+
+                    # Perform action
+                    state, _, done, _ = env.step(direction)
+                    state = torch.tensor(preprocess_state(state))
+
+                    # env.render()
+
+                    if done:
+                        state = torch.tensor(preprocess_state(env.reset()))
 
         steps_until_new_action = 0
         step_evaluation_frequency = 1
+
+        state = torch.tensor(preprocess_state(env.reset()))
+        done = True
 
         action = 0
         action_count = 0
@@ -147,10 +179,9 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
                 # Track all actions taken
                 rewards += reward
                 action_count += 1
+                total_speed += env.action(action)[0]
                 if save_actions:
                     actions.append(action)
-                vector = env.action(action)
-                total_speed += vector[0]
 
                 #env.render()
 
@@ -189,8 +220,8 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map1\\"
-    map_name = "map1"
+    directory = "models\\map5_sharper_turn\\"
+    map_name = "map5"
     re_orientate = True
         
     # Prefix for individual models to evaluate
@@ -203,10 +234,7 @@ if __name__ == '__main__':
     only_print_selected = False
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-22_18-08-07_a3c-disc-duckie_a9"
-
-    # Create results file
-    results_file = open(directory + model_prefix + ".txt", mode="a")
+    model_prefix = "2021-04-23_16-30-39_a3c-disc-duckie_a9"
 
     seeds = map_seeds[map_name]
 
@@ -223,12 +251,12 @@ if __name__ == '__main__':
         else:
             break
         
-        header = f"Model: {filename}"
+        header = f"Model: {filename} Re-orientate: {re_orientate}"
         seed_results_string.append(header)
         for i in range(len(seed_results)):
             seed = seeds[i]
             result = seed_results[i]
-            if result is None:
+            if result[0] is None:
                 seed_results_string.append(f"Seed:{seed} Crashed")
             elif re_orientate:
                 actions, rewards, average_speed, direction, turns = result
@@ -238,8 +266,11 @@ if __name__ == '__main__':
                 actions, rewards, average_speed = result
                 seed_results_string.append(f"Seed:{seed} Rewards:{rewards:.2f} Average Speed:{average_speed:.4f}")
 
+        # Open results file
+        results_file = open(directory + model_prefix + ".txt", mode="a")
+
         # Print evaluation results and store in results file
-        for result in seed_results:
+        for result in seed_results_string:
             print(result)
             results_file.write(result+'\n')
-    results_file.close()
+        results_file.close()
