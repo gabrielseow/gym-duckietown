@@ -32,7 +32,7 @@ def load_actions(model_path, map_name, seed, save_actions):
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
     # env = ActionWrapper(env)
     # env = DtRewardWrapper2(env)
-    env = DiscreteWrapper_9(env)
+    env = DiscreteWrapper_9_testing(env)
 
     shape_obs_space = env.observation_space.shape  # (3, 120, 160)
     shape_action_space = env.action_space.n  # (2,)
@@ -60,6 +60,62 @@ def load_actions(model_path, map_name, seed, save_actions):
     actions = []
     rewards = 0
     total_speed = 0
+
+    FULL_TURN = 135
+    TURN_LEFT = 9
+    TURN_RIGHT = 10
+
+    best_val = 0
+    turns = 0
+
+    # Search for ideal orientation
+    with torch.no_grad():
+        for i in range(FULL_TURN):
+            if done:
+                hx = torch.zeros(1, 256)
+            else:
+                hx = hx.detach()
+
+            # Inference
+            value, _, _ = global_net.forward((state.view(-1, 1, 80, 80), hx))
+            if value > best_val:
+                best_val = value
+                turns = i
+
+            #action_log_probs = F.log_softmax(logit, dim=-1)
+            #print(f"Val: {value} Logit: {logit} HX: {hx}")
+            #print(f"Log_prob: {action_log_probs}")
+
+            # Perform action
+            state, _, done, _ = env.step(TURN_LEFT)
+            state = torch.tensor(preprocess_state(state))
+
+            # env.render()
+
+            if done:
+                state = torch.tensor(preprocess_state(env.reset()))
+
+    if turns > FULL_TURN // 2:
+        direction = TURN_RIGHT
+        turns = FULL_TURN - turns
+    else:
+        direction = TURN_LEFT
+
+    with torch.no_grad():
+        for i in range(turns):
+            if done:
+                hx = torch.zeros(1, 256)
+            else:
+                hx = hx.detach()
+
+            # Perform action
+            state, _, done, _ = env.step(direction)
+            state = torch.tensor(preprocess_state(state))
+
+            #env.render()
+
+            if done:
+                state = torch.tensor(preprocess_state(env.reset()))
 
     while action_count < MAX_STEPS:
         with torch.no_grad():
@@ -124,31 +180,32 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map4\\"
-    map_name = "map4"
+    directory = "models\\map1\\"
+    map_name = "map1"
         
     # Prefix for individual models to evaluate
-    model_1 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-62"
-    model_2 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-63"
-    model_3 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-73"
-    model_4 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-74"
-    model_5 = "2021-04-21_15-42-23_a3c-disc-duckie_a9-78"
+    model_1 = "2021-04-22_18-05-09_a3c-disc-duckie_a9-145"
+    model_2 = "2021-04-22_18-05-09_a3c-disc-duckie_a9-146"
     selected_models = [
         model_1,
         model_2,
-        model_3,
-        model_4,
-        model_5
     ]
     only_print_selected = False
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-22_01-27-35_a3c-disc-duckie_a9"
+    model_prefix = "2021-04-19_13-53-59_a3c-disc-duckie_a9"
 
     # Create results file
     results_file = open(directory + model_prefix + ".txt", mode="a")
 
-    for seed in seeds[map_name]:
+    # Tested
+    tested = []
+
+    # for seed in seeds[map_name]:
+    for seed in [3]:
+        if seed in tested:
+            continue
+
         seed_results = []
 
         for file in os.listdir(directory):

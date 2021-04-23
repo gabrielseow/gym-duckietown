@@ -143,9 +143,12 @@ if __name__ == '__main__':
     map3_model_dir = "./models/map3/"
     map3_model = "2021-04-21_15-42-23_a3c-disc-duckie_a9-final.pth"
 
+    map5_model_dir = "./models/map5/"
+    map5_model = "2021-04-22_01-30-26_a3c-disc-duckie_a9-final.pth"
+
     # Select suitable pretrained model for transfer learning or further training
-    model_dir = map3_model_dir
-    model_file = map3_model
+    model_dir = map5_model_dir
+    model_file = map5_model
     model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
     map_name = "map5"
     save_dir = "./models/map5/"
@@ -159,6 +162,6 @@ if __name__ == '__main__':
     args.save_dir = save_dir
 
     # Reduce workers for training on laptop
-    args.num_workers = 4
+    args.num_workers = 8
 
     _train(args)
