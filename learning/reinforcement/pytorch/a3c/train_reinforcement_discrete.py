@@ -38,7 +38,7 @@ def _train(args):
     env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
     # env = ActionWrapper(env)
     env = DtRewardWrapper2(env)
-    env = DiscreteWrapper_9_map5(env)
+    env = DiscreteWrapper_9(env)
 
     # Set seeds
     seed(args.seed)
@@ -154,8 +154,8 @@ if __name__ == '__main__':
     model_file = map5_model
     model_steps = torch.load(model_dir + model_file)['info']['frames'][0]
 
-    map_name = "map5"
-    save_dir = "./models/map5_sharper_turn/"
+    map_name = "map2"
+    save_dir = "./models/map2/"
     max_steps = model_steps + 20_000_000
 
     # Manually change args to reflect choices
@@ -166,6 +166,6 @@ if __name__ == '__main__':
     args.save_dir = save_dir
 
     # Reduce workers for training on laptop
-    args.num_workers = 8
+    args.num_workers = 4
 
     _train(args)

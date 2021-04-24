@@ -1,15 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\learning",
-    "\\learning\\reinforcement",
-    "\\learning\\reinforcement\\pytorch",
-    "\\learning\\reinforcement\\pytorch\\a3c",
-    "\\learning\\utils",
     "\\models",
     "\\models\\map1",
-    "\\models\\map1_faster"
+    "\\models\\map1_faster",
+    "\\models\\map2",
+    "\\models\\map3",
+    "\\models\\map4",
+    "\\models\\map5",
+    "\\results",
+    "\\results\\map1"
   ],
-  "SelectedNode": "\\models\\map1_faster",
+  "SelectedNode": "\\learning\\utils\\env.py",
   "PreviewInSolutionExplorer": false
 }
