@@ -61,12 +61,12 @@ def write_actions_to_file(actions, directory, file_path):
 MAX_STEPS = 1500
 
 if __name__ == '__main__':
-    map_name = 'map5'
-    seed = 2
+    map_name = 'map3'
+    seed = 21
 
     model_dir = f"models\\{map_name}\\"
     file_name = [
-    "2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth"
+    "2021-04-24_01-41-59_a3c-disc-duckie_a9-190000.0.pth"
     ]
     model_file_path = model_dir + file_name[0]
 
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     actions, rewards, average_speed, direction, turns = load_actions(model_file_path, map_name, [seed], re_orientate=True, save_actions=True)[0]
     #actions, rewards, average_speed = load_actions(model_file_path, map_name, [seed], re_orientate=False, save_actions=True)[0]
 
-    print(f"Rewards:{rewards} Ave Speed:{average_speed}")
+    print(f"Seed:{seed} Rewards:{rewards:.2f} Ave Speed:{average_speed:.4f}")
 
     write_actions_to_file(actions, actions_dir, actions_file_path)
 

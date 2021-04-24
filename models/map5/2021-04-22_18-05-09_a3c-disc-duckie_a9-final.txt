@@ -12,3 +12,279 @@ Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
 Seed:1 Rewards:1167.38 Average Speed:0.3659 Direction:LEFT Turns:28
 Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
 Seed:1 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:1 Rewards:1247.79 Average Speed:0.3623 Direction:LEFT Turns:28
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:1 Rewards:1265.08 Average Speed:0.3616 Direction:LEFT Turns:28
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:1 Rewards:1274.40 Average Speed:0.3527 Direction:LEFT Turns:28
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:1 Rewards:1272.61 Average Speed:0.3517 Direction:LEFT Turns:28
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:1 Rewards:1268.24 Average Speed:0.3525 Direction:LEFT Turns:28
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth Re-orientate: True
+Seed:1 Rewards:1278.11 Average Speed:0.3487 Direction:LEFT Turns:28
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:2 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:2 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:2 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:2 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:4 Rewards:1039.87 Average Speed:0.3643 Direction:LEFT Turns:25
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:4 Rewards:1222.95 Average Speed:0.3625 Direction:LEFT Turns:23
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:4 Rewards:1383.20 Average Speed:0.3662 Direction:RIGHT Turns:13
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:4 Rewards:987.43 Average Speed:0.3558 Direction:RIGHT Turns:7
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth Re-orientate: True
+Seed:4 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:5 Rewards:1402.82 Average Speed:0.3546 Direction:LEFT Turns:12
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:5 Rewards:1436.01 Average Speed:0.3564 Direction:RIGHT Turns:22
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:5 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:7 Rewards:1399.33 Average Speed:0.3676 Direction:RIGHT Turns:4
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:7 Rewards:1361.78 Average Speed:0.3601 Direction:RIGHT Turns:4
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:7 Rewards:1377.62 Average Speed:0.3558 Direction:RIGHT Turns:13
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:7 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:7 Rewards:1379.46 Average Speed:0.3557 Direction:RIGHT Turns:14
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth Re-orientate: True
+Seed:7 Rewards:1369.80 Average Speed:0.3513 Direction:RIGHT Turns:15
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:7 Rewards:1366.13 Average Speed:0.3546 Direction:RIGHT Turns:14
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:8 Rewards:1243.73 Average Speed:0.3560 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:8 Rewards:1376.28 Average Speed:0.3619 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:8 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:8 Rewards:1364.45 Average Speed:0.3560 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:8 Rewards:1391.69 Average Speed:0.3600 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:8 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:8 Rewards:1427.69 Average Speed:0.3581 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:8 Rewards:1385.11 Average Speed:0.3501 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:8 Rewards:1420.01 Average Speed:0.3548 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:8 Rewards:1426.35 Average Speed:0.3471 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:8 Rewards:1409.47 Average Speed:0.3542 Direction:LEFT Turns:51
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:8 Rewards:1412.95 Average Speed:0.3423 Direction:LEFT Turns:62
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:8 Rewards:1416.46 Average Speed:0.3426 Direction:LEFT Turns:65
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth Re-orientate: True
+Seed:8 Crashed Rewards:1291.85
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-67.65
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-35.64
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-62.72
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-125.87
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-51.63
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-68.99
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-31.14
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-108.69
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-122.75
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-107.26
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-47.74
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-111.67
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-55.54
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-final.pth Re-orientate: True
+Seed:9 Crashed Rewards:-55.01
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-105.05
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-128.25
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-113.42
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-98.44
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-133.93
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-161.50
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-122.75
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-145.33
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-247.71
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-133.88
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-69.80
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:1187.06
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-174.67
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:9 Rewards:1262.46 Average Speed:0.3575 Direction:RIGHT Turns:40
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:9 Rewards:1281.99 Average Speed:0.3618 Direction:RIGHT Turns:40
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:9 Rewards:1281.31 Average Speed:0.3642 Direction:RIGHT Turns:40
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:9 Rewards:1309.11 Average Speed:0.3616 Direction:RIGHT Turns:40
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-44.95
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:9 Crashed Rewards:-132.55
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:9 Rewards:1309.46 Average Speed:0.3483 Direction:RIGHT Turns:40
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:10 Rewards:1267.50 Average Speed:0.3680 Direction:RIGHT Turns:1
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:10 Rewards:1438.56 Average Speed:0.3743 Direction:RIGHT Turns:1
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:10 Crashed Rewards:-38.53
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:10 Crashed Rewards:244.31
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:10 Rewards:1397.67 Average Speed:0.3683 Direction:RIGHT Turns:9
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:10 Rewards:1460.41 Average Speed:0.3754 Direction:RIGHT Turns:0
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:10 Rewards:1484.65 Average Speed:0.3690 Direction:RIGHT Turns:6
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:10 Rewards:1401.93 Average Speed:0.3629 Direction:RIGHT Turns:7
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:10 Crashed Rewards:-82.62
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:10 Rewards:1487.94 Average Speed:0.3578 Direction:RIGHT Turns:2
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:310.49
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:3.67
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:-17.42
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:16 Rewards:1288.07 Average Speed:0.3592 Direction:LEFT Turns:43
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:5.46
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:51.36
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:16 Rewards:1328.07 Average Speed:0.3575 Direction:LEFT Turns:49
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:1.67
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:13.85
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:16 Rewards:1348.17 Average Speed:0.3484 Direction:LEFT Turns:45
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:16 Crashed Rewards:-5.93
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:16 Rewards:1336.26 Average Speed:0.3465 Direction:LEFT Turns:46
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:10 Crashed Rewards:-57.69
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:10 Crashed Rewards:-40.88
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-140000.0.pth Re-orientate: True
+Seed:23 Rewards:1229.02 Average Speed:0.3692 Direction:RIGHT Turns:4
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-141000.0.pth Re-orientate: True
+Seed:23 Crashed Rewards:183.78
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-142000.0.pth Re-orientate: True
+Seed:23 Crashed Rewards:-20.16
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-143000.0.pth Re-orientate: True
+Seed:23 Crashed Rewards:287.94
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth Re-orientate: True
+Seed:23 Rewards:1396.92 Average Speed:0.3730 Direction:RIGHT Turns:8
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-145000.0.pth Re-orientate: True
+Seed:23 Rewards:1450.67 Average Speed:0.3754 Direction:RIGHT Turns:6
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-146000.0.pth Re-orientate: True
+Seed:23 Rewards:1481.86 Average Speed:0.3684 Direction:RIGHT Turns:7
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-147000.0.pth Re-orientate: True
+Seed:23 Rewards:1409.21 Average Speed:0.3653 Direction:RIGHT Turns:7
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-148000.0.pth Re-orientate: True
+Seed:23 Crashed Rewards:-84.89
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-149000.0.pth Re-orientate: True
+Seed:23 Rewards:1478.08 Average Speed:0.3574 Direction:LEFT Turns:8
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:23 Crashed Rewards:-77.89
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:23 Rewards:1469.96 Average Speed:0.3553 Direction:LEFT Turns:7
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:23 Crashed Rewards:-34.93

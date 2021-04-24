@@ -76,8 +76,10 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
             # Initialize values for adjacent views
             with torch.no_grad():
                 for i in range(2):
+                    hx_dup = hx_dup.detach()
+                
                     # Inference
-                    value_dup, _, _ = global_net.forward((state_dup.view(-1, 1, 80, 80), hx_dup))
+                    value_dup, _, hx_dup = global_net.forward((state_dup.view(-1, 1, 80, 80), hx_dup))
                     if i == 0:
                         v1 = value_dup
                     elif i == 1:
@@ -93,8 +95,10 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
             # Search for ideal orientation
             with torch.no_grad():
                 for i in range(FULL_TURN):
+                    hx_dup = hx_dup.detach()
+
                     # Inference
-                    value_dup, _, _ = global_net.forward((state_dup.view(-1, 1, 80, 80), hx_dup))
+                    value_dup, _, hx_dup = global_net.forward((state_dup.view(-1, 1, 80, 80), hx_dup))
 
                     adjusted_value = 0.5*(value_dup+v1) + v2
                     if adjusted_value > best_val:
@@ -204,7 +208,7 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
                     assert action_count == MAX_STEPS, "Error: done flag is True before MAX_STEPS reached"
                     break
         if crashed: 
-            results.append([None])
+            results.append([None, rewards])
         elif re_orientate:
             results.append([actions, rewards, (total_speed/MAX_STEPS), direction, turns])
         else:
@@ -243,27 +247,31 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map5\\"
-    map_name = "map5"
+    directory = "models\\map3\\"
+    map_name = "map3"
     re_orientate = True
         
     # Prefix for individual models to evaluate
     selected_models = [
-        "2021-04-22_18-05-09_a3c-disc-duckie_a9-14",
-        "2021-04-22_18-05-09_a3c-disc-duckie_a9-15",
-        "2021-04-22_18-05-09_a3c-disc-duckie_a9-final"
+        #"2021-04-24_01-41-59_a3c-disc-duckie_a9-15",
+        #"2021-04-24_01-41-59_a3c-disc-duckie_a9-16",
+        "2021-04-24_01-41-59_a3c-disc-duckie_a9-175",
+        "2021-04-24_01-41-59_a3c-disc-duckie_a9-176",
+        #"2021-04-24_01-41-59_a3c-disc-duckie_a9-18",
+        "2021-04-24_01-41-59_a3c-disc-duckie_a9-19",
+        "2021-04-24_01-41-59_a3c-disc-duckie_a9-final",
     ]
     only_print_selected = True
 
     # Prefix for general models to evaluate
     model_prefix = [
-        "2021-04-22_18-05-09_a3c-disc-duckie_a9-final"
+        "2021-04-22_18-08-07_a3c-disc-duckie_a9"
     ]
 
     model_prefix = model_prefix[0]
 
     seeds = map_seeds[map_name]
-    seeds = [1]
+    seeds = [21]
 
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
@@ -284,7 +292,8 @@ if __name__ == '__main__':
             seed = seeds[i]
             result = seed_results[i]
             if result[0] is None:
-                seed_results_string.append(f"Seed:{seed} Crashed")
+                rewards = result[1]
+                seed_results_string.append(f"Seed:{seed} Crashed Rewards:{rewards:.2f}")
             elif re_orientate:
                 actions, rewards, average_speed, direction, turns = result
                 direction_string = "LEFT" if direction == 9 else "RIGHT"
