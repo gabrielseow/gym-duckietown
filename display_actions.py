@@ -49,18 +49,23 @@ def write_actions_to_file(actions, directory, file_path):
     np.savetxt(file_path, actions, delimiter=',') 
 
 if __name__ == '__main__':
-    model_dir = "models\\map1\\"
-    model_file_path = model_dir + "2021-04-19_13-53-59_a3c-disc-duckie_a9-47000.0.pth"
+    model_dir = "models\\map5\\"
+    model_file_path = model_dir + "2021-04-22_18-05-09_a3c-disc-duckie_a9-144000.0.pth"
 
-    map_name = 'map1'
-    seed = 12
+    map_name = 'map5'
+    seed = 5
 
-    actions_dir = "results\\map1\\"
-    actions_file_path = actions_dir + "map1_seed12.txt"
+    actions_dir = "results\\map5\\"
+    actions_file_path = actions_dir + "map5_seed5.txt"
 
     ### Generate actions using model and dump actions to txt file
-    # actions, rewards = load_actions(model_file_path, map_name, seed, save_actions=True)
-    # write_actions_to_file(actions, actions_dir, actions_file_path)
+
+    #actions, rewards, average_speed, direction, turns = load_actions(model_file_path, map_name, [seed], re_orientate=True, save_actions=True)[0]
+    print(load_actions(model_file_path, map_name, [seed], re_orientate=False, save_actions=True)[0])
+
+    print(f"Rewards:{rewards} Ave Speed:{average_speed}")
+
+    write_actions_to_file(actions, actions_dir, actions_file_path)
 
     ### Load actions from txt file and display using simulator
-    display_actions_from_file(map_name, seed, actions_file_path)
+    #display_actions_from_file(map_name, seed, actions_file_path)
