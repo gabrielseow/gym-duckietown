@@ -94,6 +94,11 @@ class DiscreteWrapper_9_map5(gym.ActionWrapper):
         # Forward
         elif action == 8:
             vels = [0.44, 0.0]
+        # Turn on the spot to search for ideal starting orientation
+        elif action == 9:
+            vels = [0.0, +1.0]
+        elif action == 10:
+            vels = [0.0, -1.0]
         else:
             assert False, "unknown action"
         return np.array(vels)

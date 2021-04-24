@@ -44,7 +44,7 @@ seeds = {
 # Maun
 env = DuckietownEnv(
     map_name = 'map5',
-    seed = 1,
+    seed = 2,
     domain_rand = False,
     draw_bbox = False,
     max_steps=500001,  # we don't want the gym to reset itself

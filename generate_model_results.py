@@ -29,12 +29,18 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
     TURN_LEFT = 9
     TURN_RIGHT = 10
 
-    env = make_environment(map_name, 1)
-    env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
-    env = DiscreteWrapper_9(env)
+    #env = make_environment(map_name, 1)
+    #env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
+    #env = DiscreteWrapper_9(env)
 
-    shape_obs_space = env.observation_space.shape  # (3, 120, 160)
-    shape_action_space = env.action_space.n  # (2,)
+    #shape_obs_space = env.observation_space.shape  # (3, 120, 160)
+    #shape_action_space = env.action_space.n  # (2,)
+
+    shape_obs_space = (3, 480, 640)
+    shape_action_space = 9
+
+    #env.close()
+    #del env
 
     # Load model
     cwd = os.getcwd()
@@ -49,68 +55,60 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
     results = []
 
     for seed in seeds:
-        env = make_environment(map_name, seed)
-
-        env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
-        env = DiscreteWrapper_9_testing(env)
-
-        state = torch.tensor(preprocess_state(env.reset()))
 
         if re_orientate:
+            # Create separate environment to search for optimal orientation
+            env_dup = make_environment(map_name, seed)
+            env_dup = ImgWrapper(env_dup)  # to make the images from 160x120x3 into 3x160x120
+            env_dup = DiscreteWrapper_9_testing(env_dup)
+
+            state_dup = torch.tensor(preprocess_state(env_dup.reset()))
+            done_dup = True
+            
             best_val = 0
             turns = 0
 
             v1 = 0
             v2 = 0
 
-            done = True
+            hx_dup = torch.zeros(1, 256)
 
             # Initialize values for adjacent views
             with torch.no_grad():
                 for i in range(2):
-                    if done:
-                        hx = torch.zeros(1, 256)
-                    else:
-                        hx = hx.detach()
-
                     # Inference
-                    value, _, _ = global_net.forward((state.view(-1, 1, 80, 80), hx))
+                    value_dup, _, _ = global_net.forward((state_dup.view(-1, 1, 80, 80), hx_dup))
                     if i == 0:
-                        v1 = value
+                        v1 = value_dup
                     elif i == 1:
-                        v2 = value
+                        v2 = value_dup
 
                     # Perform action
-                    state, _, done, _ = env.step(TURN_LEFT)
-                    state = torch.tensor(preprocess_state(state))
+                    state_dup, _, done_dup, _ = env_dup.step(TURN_LEFT)
+                    state_dup = torch.tensor(preprocess_state(state_dup))
 
-                    if done:
-                        state = torch.tensor(preprocess_state(env.reset()))
+                    if done_dup:
+                        assert False, "Error: done flag is True during initialization"
 
             # Search for ideal orientation
             with torch.no_grad():
                 for i in range(FULL_TURN):
-                    if done:
-                        hx = torch.zeros(1, 256)
-                    else:
-                        hx = hx.detach()
-
                     # Inference
-                    value, _, _ = global_net.forward((state.view(-1, 1, 80, 80), hx))
-                    adjusted_value = 0.5*(value+v1) + v2
+                    value_dup, _, _ = global_net.forward((state_dup.view(-1, 1, 80, 80), hx_dup))
+
+                    adjusted_value = 0.5*(value_dup+v1) + v2
                     if adjusted_value > best_val:
                         best_val = adjusted_value
                         turns = i+1
-
                     v1 = v2
-                    v2 = value
+                    v2 = value_dup
 
                     # Perform action
-                    state, _, done, _ = env.step(TURN_LEFT)
-                    state = torch.tensor(preprocess_state(state))
+                    state_dup, _, done_dup, _ = env_dup.step(TURN_LEFT)
+                    state_dup = torch.tensor(preprocess_state(state_dup))
 
-                    if done:
-                        state = torch.tensor(preprocess_state(env.reset()))
+                    if done_dup:
+                        assert False, "Error: done flag is True during searching"
 
             if turns > FULL_TURN // 2:
                 direction = TURN_RIGHT
@@ -118,23 +116,19 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
             else:
                 direction = TURN_LEFT
 
-            done = True
+            env_dup.close()
 
-            with torch.no_grad():
-                for i in range(turns):
-                    if done:
-                        hx = torch.zeros(1, 256)
-                    else:
-                        hx = hx.detach()
+            del env_dup
+            del state_dup
+            del hx_dup
 
-                    # Perform action
-                    state, _, done, _ = env.step(direction)
-                    state = torch.tensor(preprocess_state(state))
+        env = make_environment(map_name, seed)
+        env = ImgWrapper(env)  # to make the images from 160x120x3 into 3x160x120
 
-                    # env.render()
-
-                    if done:
-                        state = torch.tensor(preprocess_state(env.reset()))
+        if re_orientate:
+            env = DiscreteWrapper_9_testing(env)
+        else:
+            env = DiscreteWrapper_9(env)
 
         steps_until_new_action = 0
         step_evaluation_frequency = 1
@@ -149,12 +143,32 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
         total_speed = 0
         crashed = False
 
-        while action_count < MAX_STEPS:
+        if re_orientate:
+            # Execute turns on real environment
             with torch.no_grad():
-                if done:
-                    hx = torch.zeros(1, 256)
-                else:
-                    hx = hx.detach()
+                for i in range(turns):
+                    # Perform action
+                    state, reward, done, _ = env.step(direction)
+                    state = torch.tensor(preprocess_state(state))
+
+                    # Track all actions taken
+                    rewards += reward
+                    action_count += 1
+                    if save_actions:
+                        actions.append(direction)
+                
+                    #env.render()
+
+                    if reward == -1000:
+                        assert False, "Error: crashed during re_orientate"
+                    if done:
+                        assert False, "Error: done flag is True during re_orientate"
+        
+        hx = torch.zeros(1, 256)
+
+        while True:
+            with torch.no_grad():
+                hx = hx.detach()
 
                 steps_until_new_action -= 1
 
@@ -181,18 +195,27 @@ def load_actions(model_path, map_name, seeds, re_orientate = True, save_actions 
                 action_count += 1
                 total_speed += env.action(action)[0]
                 if save_actions:
-                    actions.append(action)
+                    actions.append(action[0][0])
 
-                env.render()
+                #env.render()
 
                 if done:
-                    state = torch.tensor(preprocess_state(env.reset()))
+                    #state = torch.tensor(preprocess_state(env.reset()))
+                    assert action_count == MAX_STEPS, "Error: done flag is True before MAX_STEPS reached"
+                    break
         if crashed: 
             results.append([None])
         elif re_orientate:
             results.append([actions, rewards, (total_speed/MAX_STEPS), direction, turns])
         else:
             results.append([actions, rewards, (total_speed/MAX_STEPS)])
+
+        env.close()
+
+        del env
+        del state
+        del hx
+
     return results
 
 MAX_STEPS = 1500
@@ -220,36 +243,40 @@ if __name__ == '__main__':
         "map5": [1, 2, 4, 5, 7, 8, 9, 10, 16, 23]
     }
 
-    directory = "models\\map5_sharper_turn\\"
+    directory = "models\\map5\\"
     map_name = "map5"
     re_orientate = True
         
     # Prefix for individual models to evaluate
-    model_1 = "2021-04-22_18-05-09_a3c-disc-duckie_a9-145"
-    model_2 = "2021-04-22_18-05-09_a3c-disc-duckie_a9-146"
     selected_models = [
-        model_1,
-        model_2,
+        "2021-04-22_18-05-09_a3c-disc-duckie_a9-14",
+        "2021-04-22_18-05-09_a3c-disc-duckie_a9-15",
+        "2021-04-22_18-05-09_a3c-disc-duckie_a9-final"
     ]
-    only_print_selected = False
+    only_print_selected = True
 
     # Prefix for general models to evaluate
-    model_prefix = "2021-04-23_16-30-39_a3c-disc-duckie_a9"
+    model_prefix = [
+        "2021-04-22_18-05-09_a3c-disc-duckie_a9-final"
+    ]
+
+    model_prefix = model_prefix[0]
 
     seeds = map_seeds[map_name]
+    seeds = [1]
 
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         seed_results_string = []
 
         # If evaluating only selected models
-        if only_print_selected and any(filename.startswith(model) for model in selected_models):
+        if only_print_selected and any(filename.startswith(model) and filename.endswith(".pth") for model in selected_models):
             seed_results = load_actions(directory+filename, map_name, seeds, re_orientate = re_orientate)
         # If evaluating all models
-        elif filename.startswith(model_prefix) and filename.endswith(".pth"): 
+        elif not only_print_selected and filename.startswith(model_prefix) and filename.endswith(".pth"): 
             seed_results = load_actions(directory+filename, map_name, seeds, re_orientate = re_orientate)
         else:
-            break
+            continue
         
         header = f"Model: {filename} Re-orientate: {re_orientate}"
         seed_results_string.append(header)

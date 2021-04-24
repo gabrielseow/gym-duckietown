@@ -1,0 +1,132 @@
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-100000.0.pth Re-orientate: False
+Seed:1 Rewards:1508.59 Average Speed:0.3612
+Seed:2 Rewards:1464.70 Average Speed:0.3612
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Rewards:1480.34 Average Speed:0.3593
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Rewards:1438.74 Average Speed:0.3599
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-101000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-102000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-103000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-104000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-105000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-106000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-107000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-108000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-109000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-110000.0.pth Re-orientate: False
+Seed:1 Rewards:75.74 Average Speed:0.3500
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-111000.0.pth Re-orientate: False
+Seed:1 Crashed
+Seed:2 Crashed
+Seed:3 Crashed
+Seed:4 Crashed
+Seed:5 Crashed
+Seed:7 Crashed
+Seed:9 Crashed
+Seed:10 Crashed
+Seed:16 Crashed
+Seed:18 Crashed
