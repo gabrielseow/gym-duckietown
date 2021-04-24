@@ -1,0 +1,6 @@
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-150000.0.pth Re-orientate: True
+Seed:2 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-151000.0.pth Re-orientate: True
+Seed:2 Crashed
+Model: 2021-04-22_18-05-09_a3c-disc-duckie_a9-152000.0.pth Re-orientate: True
+Seed:2 Crashed
