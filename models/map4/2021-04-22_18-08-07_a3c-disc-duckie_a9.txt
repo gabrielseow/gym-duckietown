@@ -130,3 +130,203 @@ Seed:9 Crashed
 Seed:10 Crashed
 Seed:16 Crashed
 Seed:18 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-100000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-101000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-102000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-103000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-104000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-105000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-106000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-107000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-108000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-109000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-110000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-111000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-112000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-113000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-114000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-115000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-116000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-117000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-118000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-119000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-120000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-121000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-122000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-123000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-124000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-125000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-126000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-80000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-81000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-82000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-83000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-84000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-85000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-86000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-87000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-88000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-89000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-90000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-91000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-92000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-93000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-94000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-95000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-96000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-97000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-98000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-99000.0.pth Re-orientate: True
+Seed:1 Crashed
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-61000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-37.4152765680213
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-62000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:15.004980064488482
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-63000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:43.61863119103568
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-64000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-67.74995057285757
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-65000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:0.29989821275587314
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-66000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:120.86252838954965
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-67000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:76.7117553145917
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-68000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:314.7449108586486
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-69000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:352.5305102624651
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-70000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:29.26
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-71000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-28.08
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-72000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:360.13
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-73000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:321.69
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-74000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-69.21
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-75000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:30.44
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-76000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:7.62
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-77000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:20.45
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-78000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-52.53
+Model: 2021-04-22_01-27-35_a3c-disc-duckie_a9-79000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:317.91
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-100000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-165.93
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-101000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-105.49
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-102000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:36.75
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-103000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:107.05
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-104000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-70.55
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-105000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:38.27
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-106000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-66.07
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-107000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:435.85
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-108000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:61.64
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-109000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-51.56
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-110000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-52.73
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-111000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-77.06
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-112000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:277.60
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-113000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:330.89
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-114000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:335.12
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-115000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:337.44
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-116000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:20.03
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-117000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:214.68
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-118000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:155.42
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-119000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-69.55
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-120000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:217.17
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-121000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-50.96
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-122000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-165.19
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-123000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:259.48
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-124000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-31.72
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-125000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:177.38
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-126000.0.pth Re-orientate: True
+Seed:1 Crashed Reward:-90.56
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-100000.0.pth Re-orientate: True
+Seed:2 Rewards:1409.58 Average Speed:0.3507 Direction:LEFT Turns:37
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-101000.0.pth Re-orientate: True
+Seed:2 Crashed Reward:-5.28
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-102000.0.pth Re-orientate: True
+Seed:2 Crashed Reward:-16.19
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-103000.0.pth Re-orientate: True
+Seed:2 Crashed Reward:-14.57
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-104000.0.pth Re-orientate: True
+Seed:2 Crashed Reward:-12.85
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-105000.0.pth Re-orientate: True
+Seed:2 Crashed Reward:-6.26
+Model: 2021-04-22_18-08-07_a3c-disc-duckie_a9-106000.0.pth Re-orientate: True
+Seed:2 Crashed Reward:-25.10
