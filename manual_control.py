@@ -43,8 +43,8 @@ seeds = {
 
 # Maun
 env = DuckietownEnv(
-    map_name = 'map5',
-    seed = 2,
+    map_name = 'map3',
+    seed = 9,
     domain_rand = False,
     draw_bbox = False,
     max_steps=500001,  # we don't want the gym to reset itself
@@ -134,9 +134,9 @@ def update(dt):
     if key_handler[key.DOWN]:
         action = np.array([-0.44, 0])
     if key_handler[key.LEFT]:
-        action = np.array([0.15, +1])
+        action = np.array([0.0, +1])
     if key_handler[key.RIGHT]:
-        action = np.array([0.15, -1])
+        action = np.array([0.0, -1])
     if key_handler[key.SPACE]:
         action = np.array([0, 0])
 
